@@ -2,7 +2,10 @@
 
 - To Do 앱을 각자의 branch에서 개발합니다.
 - 적용한(할) 코드와 관련된 내용을 블로그에 정리하고 공유합니다.
+- 세부적인 내용은 Wiki에 있습니다.
+- [프로젝트 소개][Wiki]
 - [참고 링크](https://github.com/android/architecture-samples)
+- [기획](https://github.com/GDSC-PKNU-21-22/To-Do-Android/wiki/기획)
 
 ## 참여자
 
@@ -25,3 +28,4 @@
 [기획]: https://github.com/GDSC-PKNU-21-22/To-Do-Android/projects/1
 [Issues]: https://github.com/GDSC-PKNU-21-22/To-Do-Android/issues
 [PR]: https://github.com/GDSC-PKNU-21-22/To-Do-Android/pulls
+[Wiki]: https://github.com/GDSC-PKNU-21-22/To-Do-Android/wiki
