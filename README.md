@@ -6,6 +6,7 @@
 - [프로젝트 소개][Wiki]
 - [참고 링크](https://github.com/android/architecture-samples)
 - [기획](https://github.com/GDSC-PKNU-21-22/To-Do-Android/wiki/기획)
+- [컨벤션](https://github.com/GDSC-PKNU-21-22/To-Do-Android/wiki/컨벤션)
 
 ## 참여자
 
