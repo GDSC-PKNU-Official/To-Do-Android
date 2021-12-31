@@ -13,6 +13,8 @@
 |이름|Github|Blog|
 |--|--|--|
 | 차지원| [Github](https://github.com/Cha-Ji)| [Tistory](https://cha-ji.tistory.com)|
+| 최정은| [Github](https://github.com/JeongeunChoi)| [Tistory](https://jerecord.tistory.com)|
+| 남우진| [Github](https://jerecord.tistory.com)||
 
 ## 진행
 
