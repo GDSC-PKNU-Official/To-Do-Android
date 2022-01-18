@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/Widget.AppCompat.Toolbar"
-                tools:text="New To-Do">
+                app:title="@string/new_to_do">
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -57,6 +57,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/complete_to_do"
             android:src="@drawable/ic_check"
+            app:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
         </com.google.android.material.floatingactionbutton.FloatingActionButton>
