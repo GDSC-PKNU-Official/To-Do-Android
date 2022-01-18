@@ -2,4 +2,6 @@
     <string name="app_name">ToDo</string>
     <string name="add_todo_button">Add Todo Button</string>
     <string name="complete_to_do">complete to do</string>
+    <string name="title">Title</string>
+    <string name="enter_to_do">Enter To-Do</string>
 </resources>

@@ -29,13 +29,27 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_addToDo_contents"
+        <EditText
+            android:id="@+id/et_addToDo_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/layout_addToDo_appbar"
+            android:hint="@string/title"
+            android:autofillHints=""
+            android:inputType="text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_addToDo_appbar">
+        </EditText>
+
+        <EditText
+            android:id="@+id/et_addToDo_contents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_to_do"
+            android:autofillHints=""
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/et_addToDo_title"
             app:layout_constraintLeft_toLeftOf="parent">
-        </androidx.recyclerview.widget.RecyclerView>
+        </EditText>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_addToDo_complete"
