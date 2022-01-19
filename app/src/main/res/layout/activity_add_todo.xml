@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.gdsc.todo.model.ToDo"/>
 
+        <variable
+            name="vm"
+            type="com.gdsc.todo.ui.ToDoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +40,7 @@
             android:hint="@string/title"
             android:autofillHints=""
             android:inputType="text"
+            android:text="@={vm.title}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_addToDo_appbar">
         </EditText>
@@ -47,6 +52,7 @@
             android:hint="@string/enter_to_do"
             android:autofillHints=""
             android:inputType="text"
+            android:text="@={vm.contents}"
             app:layout_constraintTop_toBottomOf="@id/et_addToDo_title"
             app:layout_constraintLeft_toLeftOf="parent">
         </EditText>
@@ -57,6 +63,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/complete_to_do"
             android:src="@drawable/ic_check"
+            android:onClick="@{() -> vm.addToDoList()}"
             app:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
