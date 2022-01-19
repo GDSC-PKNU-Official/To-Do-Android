@@ -6,6 +6,7 @@ buildscript {
         kotlin_version = "1.6.10"
 
         hilt_version = "2.40"
+        ktx_version = "1.4.0"
     }
 
     repositories {
