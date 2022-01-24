@@ -1,11 +1,11 @@
 <!--
+PR 템플릿 v0.2
+
 **사전 작업**
-- Reviewers 지정
 - Assignees 지정
 - Labels 지정
 - Project 지정
 - Milestone 지정
-- Linked issues 지정
 -->
 
 ## What is this pr
@@ -22,7 +22,4 @@
 ## Screenshot
 <!-- - 변경된 내용과 관련된 스크린샷(보이지 않는 경우 생략) -->
 <!-- - 이미지를 해당 본문에 드래그하면 이미지 url을 얻을 수 있습니다. -->
-<img src="url" width=350 />
-
-## Test check list
-<!-- - 테스트 코드를 작성한경우 리스트업 -->
+<!-- <img src="url" width=350 /> -->

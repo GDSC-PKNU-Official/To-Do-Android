@@ -1,5 +1,5 @@
 ---
-name: Feature request v0.1
+name: Feature request v0.2
 about: 기능 추가 템플릿입니다.
 title: ''
 labels: ''
@@ -16,11 +16,10 @@ assignees: ''
 -->
 
 ## 기술 키워드
-- [ ]
+###
 
 ## To Do
-- [ ] 
-- [ ]
+- 
 
 ## 비고 <!--Option-->
 
