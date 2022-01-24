@@ -6,22 +6,42 @@
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/layout_main_appbar"
+        android:id="@+id/layout_addTodo_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/main_toolbar"
+            android:id="@+id/addTodo_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#CDBEBE"
-            app:title="TO-DO Notes" />
+            app:title="New-To-Do" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <EditText
+        android:id="@+id/addTodo_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_addTodo_appbar"
+        android:hint="Title"
+        android:background="@android:color/transparent"
+        android:layout_margin="13dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/addTodo_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addTodo_title"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:hint="Enter your TO-DO here." />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/main_addButton"
+        android:id="@+id/addTodo_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -29,8 +49,6 @@
         android:layout_margin="19dp"
         app:tint="@color/white"
         android:backgroundTint="#5BA677"
-        android:src="@drawable/ic_add"/>
-
-
+        android:src="@drawable/ic_check"/>
 
 </RelativeLayout>

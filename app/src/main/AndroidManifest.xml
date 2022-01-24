@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToDo">
         <activity
+            android:name=".AddToDoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".AddToDoAC"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
