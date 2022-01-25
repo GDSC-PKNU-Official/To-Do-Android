@@ -22,11 +22,7 @@ class AddToDoActivity: BaseActivity<ActivityAddTodoBinding>(R.layout.activity_ad
 
     private fun setObserve() {
         viewModel.addButtonClickEvent.observe(this) {
-            navigateHomeActivity()
+            finish()
         }
-    }
-
-    private fun navigateHomeActivity() {
-        // TODO: home화면 전환
     }
 }
