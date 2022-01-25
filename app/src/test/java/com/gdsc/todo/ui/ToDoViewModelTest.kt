@@ -2,14 +2,19 @@ package com.gdsc.todo.ui
 
 import com.gdsc.todo.model.ToDo
 import org.junit.Assert.*
-
-import org.junit.After
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class ToDoViewModelTest {
 
     private lateinit var viewModel: ToDoViewModel
+
+    @Rule
+    @JvmField
+    // LiveData가 Main Thread가 아니여도 set value를 할 수 있게 수정하는 테스트 룰
+    val rule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
@@ -28,7 +33,7 @@ class ToDoViewModelTest {
         viewModel.contents = contents
 
         // And click FAB
-        viewModel.addToDoList()
+        viewModel.clickAddButton()
 
         // Then added To Do List
         assertEquals(todo, viewModel.toDoList[0])
