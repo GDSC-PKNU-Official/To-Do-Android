@@ -16,5 +16,17 @@ class AddToDoActivity: BaseActivity<ActivityAddTodoBinding>(R.layout.activity_ad
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
+
+        setObserve()
+    }
+
+    private fun setObserve() {
+        viewModel.addButtonClickEvent.observe(this) {
+            navigateHomeActivity()
+        }
+    }
+
+    private fun navigateHomeActivity() {
+        // TODO: home화면 전환
     }
 }

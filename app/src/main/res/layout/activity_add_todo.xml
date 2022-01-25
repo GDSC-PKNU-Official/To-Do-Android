@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/complete_to_do"
             android:src="@drawable/ic_check"
-            android:onClick="@{() -> vm.addToDoList()}"
+            android:onClick="@{() -> vm.clickAddButton()}"
             app:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
