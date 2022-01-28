@@ -8,7 +8,7 @@ import com.gdsc.todo.databinding.ItemTodoBinding
 import com.gdsc.todo.model.ToDo
 import com.gdsc.todo.ui.BaseViewHolder
 
-class ToDoAdapter(private val items: List<ToDo>) : ListAdapter<ToDo, BaseViewHolder<ItemTodoBinding>>(diffUtil) {
+class ToDoAdapter : ListAdapter<ToDo, BaseViewHolder<ItemTodoBinding>>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ItemTodoBinding> =
         BaseViewHolder(parent, R.layout.item_todo)
