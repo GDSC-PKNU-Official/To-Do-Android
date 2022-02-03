@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.gdsc.todo.AddToDo.AddToDoActivity
-import com.gdsc.todo.databinding.ActivityMainBinding
+import com.gdsc.todo.databinding.ActivityToDoBinding
 
 class ToDoActivity : AppCompatActivity() {
     // 사용자의 Input이 주어지면 뷰를 통해 Presenter로 흐름이 이어지므로
@@ -13,7 +13,7 @@ class ToDoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        val binding = ActivityToDoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.mainAddButton.setOnClickListener {
