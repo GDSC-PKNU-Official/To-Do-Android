@@ -11,6 +11,8 @@ import com.gdsc.todo.databinding.ActivityAddToDoBinding
 import com.gdsc.todo.model.ListDatasource
 import com.gdsc.todo.model.MyToDoList
 
+const val TAG = "AddToDoActivity";
+
 class AddToDoActivity : AppCompatActivity() {
     val myListSet = ListDatasource().loadMyToDoList()
 
@@ -32,8 +34,8 @@ class AddToDoActivity : AppCompatActivity() {
                 Toast.makeText(this, "할 일이 추가되었습니다!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, ToDoActivity::class.java)
 
-//                Log.d("추가된 리스트 title", myListSet[0].title)
-//                Log.d("추가된 리스트 content", myListSet[0].content)
+                Log.d(TAG, myListSet[0].title)
+                Log.d(TAG, myListSet[0].content)
 
                 intent.putExtra("타이틀", myListSet[0].title)
                 intent.putExtra("컨텐트", myListSet[0].content)

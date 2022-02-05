@@ -26,8 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_todo_appbar"
         android:textColor="@color/black"
-        android:textSize="13dp"
-        android:text="제목"/>
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/todo_detail"
@@ -35,8 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/todo_title"
         android:textColor="@color/black"
-        android:textSize="13dp"
-        android:text="자세한 내용임"/>
+        android:textSize="13dp" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
