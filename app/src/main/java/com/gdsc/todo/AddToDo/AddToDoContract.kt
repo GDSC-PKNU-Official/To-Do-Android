@@ -9,6 +9,6 @@ interface AddToDoContract {
     }
 
     interface Presenter : BasePresenter {
-
+        
     }
 }
