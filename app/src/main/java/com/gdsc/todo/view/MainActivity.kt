@@ -7,7 +7,7 @@ import com.gdsc.todo.R
 import com.gdsc.todo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.todoListAddButton.setOnClickListener {
+        binding.mainFAB.setOnClickListener {
             val intent = Intent(this, EditTodoActivity::class.java)
             startActivity(intent)
         }

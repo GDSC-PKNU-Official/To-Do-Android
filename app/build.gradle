@@ -6,6 +6,10 @@ plugins {
 android {
     compileSdk 31
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId "com.gdsc.todo"
         minSdk 21

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ToDo</string>
+    <string name="save">저장</string>
+    <string name="typeContent">내용을 입력해주세요!</string>
+    <string name="typeTitle">제목을 입력해주세요.</string>
+    <string name="addToDoButton">AddTodoButton</string>
 </resources>
