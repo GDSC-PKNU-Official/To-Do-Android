@@ -10,7 +10,7 @@ import com.gdsc.todo.model.TodoModel
     model의 TodoModel 리스트를 생성자로부터 전달받아 RecyclerView.Adapter를 상속받고,
     RecyclerView.ViewHolder를 뷰홀더로 갖는 클래스를 구현합니다.
  */
-class TodoListAdapter(val todoItems: ArrayList<TodoModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TodoListAdapter(private val todoItems: ArrayList<TodoModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(todoModel: TodoModel) {
 
@@ -30,16 +30,12 @@ class TodoListAdapter(val todoItems: ArrayList<TodoModel>) : RecyclerView.Adapte
 
     // 현재 아이템의 포지션에 대한 데이터 모델을 리스트에서 얻고 Holder객체를 TodoViewHolder로 형변환한뒤
     // bind 메서드에 이 모델을 전달하여 데이터를 바인딩하도록 합니다.
-
-//    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-//        val todoModel = todoItems[position]
-//        holder.bind(todoModel)
-//    }
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val todoModel = todoItems[position]
-        val todoViewHolder = holder as TodoViewHolder
+       val todoModel = todoItems[position]
 
-        todoViewHolder.bind(todoModel)
+        //val todoViewHolder = holder as TodoViewHolder
+
+        //todoViewHolder.bind(todoModel)
     }
+
 }

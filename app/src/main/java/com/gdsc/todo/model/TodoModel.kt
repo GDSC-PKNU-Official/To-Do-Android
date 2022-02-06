@@ -7,6 +7,6 @@ package com.gdsc.todo.model
 
 data class TodoModel(
     var title: String,
-    var content: String,
-    var timeStamp: Long
+    var timeStamp: Long,
+    var content: String
 )

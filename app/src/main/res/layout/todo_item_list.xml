@@ -6,31 +6,51 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp">
 
+    <View
+        android:id="@+id/todoItemList_contourV"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/todoItemList_titleTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
-        android:id="@+id/todo_item_list_titleTV"
+        android:id="@+id/todoItemList_titleTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="My To-Do List"
+        android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/todo_item_list_TimeStampTV"
+        app:layout_constraintBottom_toTopOf="@id/todoItemList_TimeStampTV"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:text="My To-Do List" />
 
     <TextView
-        android:id="@+id/todo_item_list_TimeStampTV"
+        android:id="@+id/todoItemList_TimeStampTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#808080"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/todo_item_list_titleTV"
+        app:layout_constraintTop_toBottomOf="@id/todoItemList_titleTV"
         tools:text="작성된 시간: 00:00" />
 
+    <TextView
+        android:id="@+id/todoItemList_ContentsTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todoItemList_TimeStampTV"
+        tools:text="여기에는 내용이 들어감" />
+
     <CheckBox
-        android:id="@+id/todo_item_list_CheckCB"
+        android:id="@+id/todoItemList_CheckCB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
