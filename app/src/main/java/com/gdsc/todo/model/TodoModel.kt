@@ -6,7 +6,8 @@ package com.gdsc.todo.model
  */
 
 data class TodoModel(
-    var title: String,
-    var timeStamp: Long,
-    var content: String
+    val title: String,
+    val timeStamp: String,
+    val content: String,
+    var checked: Boolean
 )
