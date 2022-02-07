@@ -5,46 +5,48 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
+import com.gdsc.todo.R
 import com.gdsc.todo.ToDo.ToDoActivity
+import com.gdsc.todo.ToDo.ToDoPresenter
 import com.gdsc.todo.databinding.ActivityAddToDoBinding
 import com.gdsc.todo.model.ListDatasource
 import com.gdsc.todo.model.MyToDoList
 
-const val TAG = "AddToDoActivity";
+const val TAG = "AddToDoActivity"
 
-class AddToDoActivity : AppCompatActivity() {
-    val myListSet = ListDatasource().loadMyToDoList()
+class AddToDoActivity : AppCompatActivity(), AddToDoContract.View {
+    override lateinit var presenter: AddToDoContract.Presenter
+    private lateinit var title: TextView
+    private lateinit var content: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = ActivityAddToDoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        title = binding.addTodoTitle
+        content = binding.addTodoContent
+
+        presenter = AddToDoPresenter(this)
 
         setSupportActionBar(binding.addTodoToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
         // 할 일 추가 버튼
         binding.addTodoButton.setOnClickListener {
-            if(binding.addTodoTitle.text.isNotEmpty() && binding.addTodoContent.text.isNotEmpty()){
-                myListSet.add(MyToDoList(binding.addTodoTitle.getText().toString(), binding.addTodoContent.getText().toString()))
-                binding.addTodoTitle.setText("")
-                binding.addTodoContent.setText("")
-                Toast.makeText(this, "할 일이 추가되었습니다!", Toast.LENGTH_SHORT).show()
+            if(title.text.isNotEmpty() && content.text.isNotEmpty()){
+                presenter.saveToDo(title.text.toString(), content.text.toString())
+                title.text = ""
+                content.text = ""
                 val intent = Intent(this, ToDoActivity::class.java)
-
-                Log.d(TAG, myListSet[0].title)
-                Log.d(TAG, myListSet[0].content)
-
-                intent.putExtra("타이틀", myListSet[0].title)
-                intent.putExtra("컨텐트", myListSet[0].content)
+                presenter.sendToDo(title.text.toString(), content.text.toString(), intent)
                 startActivity(intent)
+            } else{
+                showEmptyToDoError()
             }
-
         }
-
-        setContentView(binding.root)
     }
 
     // 툴바의 뒤로가기 버튼
@@ -57,5 +59,9 @@ class AddToDoActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun showEmptyToDoError() {
+        Toast.makeText(this, getString(R.string.show_empty), Toast.LENGTH_SHORT).show()
     }
 }

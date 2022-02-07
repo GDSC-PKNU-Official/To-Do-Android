@@ -20,21 +20,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/todo_title"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/todo_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_todo_appbar"
-        android:textColor="@color/black"
-        android:textSize="13dp" />
-
-    <TextView
-        android:id="@+id/todo_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/todo_title"
-        android:textColor="@color/black"
-        android:textSize="13dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_todo_appbar"/>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
