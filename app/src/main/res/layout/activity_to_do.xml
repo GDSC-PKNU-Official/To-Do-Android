@@ -6,19 +6,26 @@
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/layout_main_appbar"
+        android:id="@+id/layout_todo_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/main_toolbar"
+            android:id="@+id/todo_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#CDBEBE"
             app:title="TO-DO Notes" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/todo_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_todo_appbar"/>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_addButton"
@@ -30,7 +37,6 @@
         app:tint="@color/white"
         android:backgroundTint="#5BA677"
         android:src="@drawable/ic_add"/>
-
 
 
 </RelativeLayout>
