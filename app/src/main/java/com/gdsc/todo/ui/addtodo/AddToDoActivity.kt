@@ -16,5 +16,15 @@ class AddToDoActivity: BaseActivity<ActivityAddTodoBinding>(R.layout.activity_ad
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
+
+        setObserve()
+    }
+
+    private fun setObserve() {
+        viewModel.addButtonClickEvent.observe(this) { clickEvent ->
+            clickEvent.getContentIfNotHandled()?.let {
+                finish()
+            }
+        }
     }
 }
