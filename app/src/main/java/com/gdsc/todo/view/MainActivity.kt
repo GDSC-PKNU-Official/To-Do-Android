@@ -23,20 +23,17 @@ class MainActivity : AppCompatActivity() {
         initBinding()
         initRecyclerView()
         initAddButton()
-        Log.d("initAddButton", "$todoItems")
     }
 
     private fun initBinding() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.d("initBinding", "initBinding 호출되었습니다.")
     }
 
     private fun initRecyclerView() {
         binding.mainRV.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MainActivity)
-            Log.d("initRecyclerView", "initRecyclerView가 호출되었습니다.")
         }
     }
 
