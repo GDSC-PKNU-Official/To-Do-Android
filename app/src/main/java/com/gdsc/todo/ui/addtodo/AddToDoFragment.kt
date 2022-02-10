@@ -3,7 +3,7 @@ package com.gdsc.todo.ui.addtodo
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.gdsc.todo.R
 import com.gdsc.todo.databinding.FragmentAddTodoBinding
 import com.gdsc.todo.ui.ToDoViewModel
@@ -36,7 +36,7 @@ class AddToDoFragment: BaseFragment<FragmentAddTodoBinding>(R.layout.fragment_ad
     }
 
     private fun navigateHomeActivity() {
-        // TODO: 화면 전환
-
+        val action = AddToDoFragmentDirections.toHome()
+        findNavController().navigate(action)
     }
 }
