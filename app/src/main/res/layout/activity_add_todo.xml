@@ -28,9 +28,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/Widget.AppCompat.Toolbar"
-                app:title="@string/new_to_do">
-            </androidx.appcompat.widget.Toolbar>
-
+                app:title="@string/new_to_do" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <EditText
@@ -42,8 +40,7 @@
             android:inputType="text"
             android:text="@={vm.title}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_addToDo_appbar">
-        </EditText>
+            app:layout_constraintTop_toBottomOf="@id/layout_addToDo_appbar" />
 
         <EditText
             android:id="@+id/et_addToDo_contents"
@@ -54,8 +51,7 @@
             android:inputType="text"
             android:text="@={vm.contents}"
             app:layout_constraintTop_toBottomOf="@id/et_addToDo_title"
-            app:layout_constraintLeft_toLeftOf="parent">
-        </EditText>
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_addToDo_complete"
@@ -66,7 +62,6 @@
             android:onClick="@{() -> vm.clickCompleteButton()}"
             app:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
