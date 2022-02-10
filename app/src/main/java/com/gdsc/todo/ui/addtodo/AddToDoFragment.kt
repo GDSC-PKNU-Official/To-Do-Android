@@ -2,8 +2,8 @@ package com.gdsc.todo.ui.addtodo
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.gdsc.todo.R
 import com.gdsc.todo.databinding.FragmentAddTodoBinding
 import com.gdsc.todo.ui.ToDoViewModel
@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AddToDoFragment: BaseFragment<FragmentAddTodoBinding>(R.layout.fragment_add_todo) {
 
-    private val viewModel: ToDoViewModel by activityViewModels()
+    private val viewModel by navGraphViewModels<ToDoViewModel>(R.id.addToDoFragment) { defaultViewModelProviderFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,7 +28,7 @@ class AddToDoFragment: BaseFragment<FragmentAddTodoBinding>(R.layout.fragment_ad
     }
 
     private fun observeCompleteButton() {
-        viewModel.completeButtonClickEvent.observe(this) { clickEvent ->
+        viewModel.completeButtonClickEvent.observe(requireActivity()) { clickEvent ->
             clickEvent.getContentIfNotHandled()?.let {
                 navigateHomeActivity()
             }

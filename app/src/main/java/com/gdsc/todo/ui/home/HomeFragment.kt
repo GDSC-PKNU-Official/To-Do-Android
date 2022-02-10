@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
-    private val toDoViewModel: ToDoViewModel by navGraphViewModels(R.id.homeFragment) { defaultViewModelProviderFactory }
+    private val toDoViewModel by navGraphViewModels<ToDoViewModel>(R.id.homeFragment) { defaultViewModelProviderFactory }
     private val adapter: ToDoAdapter by lazy { ToDoAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,13 +26,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun observeToDoList() {
-        toDoViewModel.toDoList.observe(this) { toDoList ->
+        toDoViewModel.toDoList.observe(requireActivity()) { toDoList ->
             adapter.submitList(toDoList)
         }
     }
 
     private fun observeAddFAB() {
-        toDoViewModel.addButtonClickEvent.observe(this) {
+        toDoViewModel.addButtonClickEvent.observe(requireActivity()) {
             navigateAddTodo()
         }
     }
