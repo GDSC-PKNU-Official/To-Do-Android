@@ -1,6 +1,6 @@
 package com.gdsc.todo.ui
 
-import com.gdsc.todo.model.ToDo
+import com.gdsc.todo.data.entity.ToDo
 import org.junit.Assert.*
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Before
@@ -26,7 +26,7 @@ class ToDoViewModelTest {
         //Given title, contents
         val title = "title"
         val contents = "contents"
-        val todo = ToDo(title, contents)
+        val todo = ToDo(title = title, contents = contents)
 
         // When edit title, contents
         viewModel.title = title
@@ -36,6 +36,6 @@ class ToDoViewModelTest {
         viewModel.clickCompleteButton()
 
         // Then added To Do List
-        assertEquals(todo, viewModel.toDoList[0])
+        assertEquals(todo, viewModel.toDoList.value?.first())
     }
 }

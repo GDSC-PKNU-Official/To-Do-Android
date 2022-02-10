@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gdsc.todo.Event
-import com.gdsc.todo.model.ToDo
+import com.gdsc.todo.data.entity.ToDo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ class ToDoViewModel @Inject constructor(
     }
 
     private fun addToDoList() {
-        _toDoList.value = _toDoList.value?.plus(ToDo(title, contents)) ?: listOf(ToDo(title, contents))
+        _toDoList.value = _toDoList.value?.plus(ToDo(title = title, contents = contents)) ?: listOf(ToDo(title = title, contents = contents))
     }
 
     fun clickAddButton() {

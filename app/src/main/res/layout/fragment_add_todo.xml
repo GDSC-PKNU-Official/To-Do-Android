@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.gdsc.todo.model.ToDo"/>
+        <import type="com.gdsc.todo.data.entity.ToDo"/>
 
         <variable
             name="vm"
