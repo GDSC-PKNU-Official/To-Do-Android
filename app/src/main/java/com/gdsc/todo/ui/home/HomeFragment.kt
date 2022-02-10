@@ -1,47 +1,44 @@
 package com.gdsc.todo.ui.home
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.gdsc.todo.R
-import com.gdsc.todo.databinding.ActivityHomeBinding
 import com.gdsc.todo.databinding.FragmentHomeBinding
-import com.gdsc.todo.ui.BaseActivity
 import com.gdsc.todo.ui.ToDoViewModel
-import com.gdsc.todo.ui.addtodo.AddToDoActivity
 import com.gdsc.todo.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeActivity : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
-    private val viewModel: ToDoViewModel by navGraphViewModels<>()
+    private val toDoViewModel: ToDoViewModel by navGraphViewModels(R.id.homeFragment) { defaultViewModelProviderFactory }
     private val adapter: ToDoAdapter by lazy { ToDoAdapter() }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.rvHomeToDoContents.adapter = adapter
-        binding.vm = viewModel
+        binding.vm = toDoViewModel
 
         observeToDoList()
         observeAddFAB()
     }
 
     private fun observeToDoList() {
-        viewModel.toDoList.observe(this) { toDoList ->
+        toDoViewModel.toDoList.observe(this) { toDoList ->
             adapter.submitList(toDoList)
         }
     }
 
     private fun observeAddFAB() {
-        viewModel.addButtonClickEvent.observe(this) {
+        toDoViewModel.addButtonClickEvent.observe(this) {
             navigateAddTodo()
         }
     }
 
     private fun navigateAddTodo() {
-        val intent = Intent(this, AddToDoActivity::class.java)
-        startActivity(intent)
+        val action = HomeFragmentDirections.toAddToDo()
+        findNavController().navigate(action) // TODO: 부모 클래스에 선언해두자
     }
 }
