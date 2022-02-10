@@ -33,7 +33,7 @@ class ToDoViewModelTest {
         viewModel.contents = contents
 
         // And click FAB
-        viewModel.clickAddButton()
+        viewModel.clickCompleteButton()
 
         // Then added To Do List
         assertEquals(todo, viewModel.toDoList[0])

@@ -21,7 +21,7 @@ class AddToDoActivity: BaseActivity<ActivityAddTodoBinding>(R.layout.activity_ad
     }
 
     private fun setObserve() {
-        viewModel.addButtonClickEvent.observe(this) { clickEvent ->
+        viewModel.completeButtonClickEvent.observe(this) { clickEvent ->
             clickEvent.getContentIfNotHandled()?.let {
                 finish()
             }
