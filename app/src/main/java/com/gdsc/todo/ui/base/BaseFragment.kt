@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import dagger.hilt.android.AndroidEntryPoint
 import kotlin.IllegalStateException
 
-@AndroidEntryPoint
 open class BaseFragment<T: ViewDataBinding>(private val layoutId: Int) : Fragment() {
 
     private var _binding: T? = null
