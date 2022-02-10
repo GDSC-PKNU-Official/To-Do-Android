@@ -16,18 +16,25 @@ class ToDoViewModel @Inject constructor(
     private var _toDoList: MutableLiveData<List<ToDo>> = MutableLiveData()
     val toDoList: LiveData<List<ToDo>> = _toDoList
 
+    private var _completeButtonClickEvent: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val completeButtonClickEvent: LiveData<Event<Unit>> = _completeButtonClickEvent
+
     private var _addButtonClickEvent: MutableLiveData<Event<Unit>> = MutableLiveData()
     val addButtonClickEvent: LiveData<Event<Unit>> = _addButtonClickEvent
 
     var title = ""
     var contents = ""
 
-    fun clickAddButton() {
-        _addButtonClickEvent.value = Event(Unit)
+    fun clickCompleteButton() {
+        _completeButtonClickEvent.value = Event(Unit)
         addToDoList()
     }
 
     private fun addToDoList() {
         _toDoList.value = _toDoList.value?.plus(ToDo(title, contents)) ?: listOf(ToDo(title, contents))
+    }
+
+    fun clickAddButton() {
+        _addButtonClickEvent.value = Event(Unit)
     }
 }
