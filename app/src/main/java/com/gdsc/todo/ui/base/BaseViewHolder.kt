@@ -1,4 +1,4 @@
-package com.gdsc.todo.ui
+package com.gdsc.todo.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

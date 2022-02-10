@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.gdsc.todo.R
 import com.gdsc.todo.databinding.ItemTodoBinding
 import com.gdsc.todo.model.ToDo
-import com.gdsc.todo.ui.BaseViewHolder
+import com.gdsc.todo.ui.base.BaseViewHolder
 
 class ToDoAdapter : ListAdapter<ToDo, BaseViewHolder<ItemTodoBinding>>(diffUtil) {
 

@@ -1,4 +1,4 @@
-package com.gdsc.todo.ui
+package com.gdsc.todo.ui.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
