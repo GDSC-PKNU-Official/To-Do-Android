@@ -13,8 +13,8 @@ class ToDoViewModel @Inject constructor(
 
 ): ViewModel() {
 
-    private var _toDoList: MutableList<ToDo> = mutableListOf()
-    val toDoList: List<ToDo> = _toDoList
+    private var _toDoList: MutableLiveData<List<ToDo>> = MutableLiveData()
+    val toDoList: LiveData<List<ToDo>> = _toDoList
 
     private var _addButtonClickEvent: MutableLiveData<Event<Unit>> = MutableLiveData()
     val addButtonClickEvent: LiveData<Event<Unit>> = _addButtonClickEvent
@@ -28,6 +28,6 @@ class ToDoViewModel @Inject constructor(
     }
 
     private fun addToDoList() {
-        _toDoList.add(ToDo(title, contents))
+        _toDoList.value = _toDoList.value?.plus(ToDo(title, contents)) ?: listOf(ToDo(title, contents))
     }
 }
