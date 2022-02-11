@@ -24,8 +24,7 @@ class TodoListAdapter(private val todoItems: ArrayList<TodoModel>) : RecyclerVie
     class TodoViewHolder(private val binding: TodoItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(todoModel: TodoModel){
             binding.todoItemListTitleTV.text = todoModel.title
-            binding.todoItemListTimeStampTV.text = todoModel.timeStamp.toString()
-            binding.todoItemListContentsTV.text = todoModel.content
+            binding.todoItemListTimeStampTV.text = todoModel.timeStamp
             binding.todoItemListCheckCB.isChecked = todoModel.checked
         }
 

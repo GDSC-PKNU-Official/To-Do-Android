@@ -42,6 +42,7 @@ class EditTodoActivity : AppCompatActivity() {
             intent.putExtra("editDate", todoDate)
 
             startActivity(intent)
+            finish()
         }
     }
 }

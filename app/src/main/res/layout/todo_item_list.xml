@@ -25,16 +25,6 @@
         app:layout_constraintTop_toBottomOf="@id/todoItemList_titleTV"
         tools:text="작성된 시간: 00:00" />
 
-    <TextView
-        android:id="@+id/todoItemList_ContentsTV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/todoItemList_TimeStampTV"
-        tools:text="여기에는 내용이 들어감" />
-
     <CheckBox
         android:id="@+id/todoItemList_CheckCB"
         android:layout_width="wrap_content"
@@ -48,7 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/todoItemList_ContentsTV"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintTop_toBottomOf="@id/todoItemList_TimeStampTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
