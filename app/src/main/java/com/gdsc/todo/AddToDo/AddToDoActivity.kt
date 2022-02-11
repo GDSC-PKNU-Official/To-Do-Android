@@ -3,16 +3,12 @@ package com.gdsc.todo.AddToDo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import com.gdsc.todo.R
 import com.gdsc.todo.ToDo.ToDoActivity
-import com.gdsc.todo.ToDo.ToDoPresenter
 import com.gdsc.todo.databinding.ActivityAddToDoBinding
-import com.gdsc.todo.model.ListDatasource
-import com.gdsc.todo.model.MyToDoList
 
 const val TAG = "AddToDoActivity"
 
