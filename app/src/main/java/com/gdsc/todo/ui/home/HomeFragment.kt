@@ -26,13 +26,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun observeToDoList() {
-        toDoViewModel.toDoList.observe(requireActivity()) { toDoList ->
+        toDoViewModel.getToDoList().observe(this) { toDoList ->
             adapter.submitList(toDoList)
         }
     }
 
     private fun observeAddFAB() {
-        toDoViewModel.addButtonClickEvent.observe(requireActivity()) {
+        toDoViewModel.addButtonClickEvent.observe(this) {
             navigateAddTodo()
         }
     }
