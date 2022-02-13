@@ -21,7 +21,7 @@ object LocalDatabaseModule { // TODO: 왜 object?
         Database::class.java,
         "AppDatabase.db"
     )
-        .createFromAsset("default.db")
+//        .createFromAsset("default.db")
         .build()
 
     @Provides
