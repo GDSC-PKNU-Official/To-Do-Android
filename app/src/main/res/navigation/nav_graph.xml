@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/addToDoFragment"
+        android:name="com.gdsc.todo.ui.addtodo.AddToDoFragment"
+        tools:layout="@layout/fragment_add_todo">
+        <action
+            android:id="@+id/to_home"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.gdsc.todo.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/to_addToDo"
+            app:destination="@id/addToDoFragment" />
+    </fragment>
+</navigation>
