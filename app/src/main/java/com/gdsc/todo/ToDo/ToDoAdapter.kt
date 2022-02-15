@@ -10,11 +10,19 @@ import com.gdsc.todo.model.MyToDoList
 class ToDoAdapter(
     private val myToDoSet: List<MyToDoList>
 ): RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
-    class ToDoViewHolder(val binding: ItemTodoBinding): RecyclerView.ViewHolder(binding.root)
+    class ToDoViewHolder(private val binding: ItemTodoBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(item: MyToDoList) {
+            binding.title.text = item.title
+            binding.content.text = item.content
+        }
+    }
 
     override fun getItemCount(): Int{
         Log.d("size", myToDoSet.size.toString())
-        return myToDoSet.size
+        if(myToDoSet.isNotEmpty()){
+            return myToDoSet.size
+        }
+        return 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoViewHolder =
@@ -22,9 +30,7 @@ class ToDoAdapter(
             parent, false))
 
     override fun onBindViewHolder(holder: ToDoViewHolder, position: Int) {
-        val binding = holder.binding
-        binding.title.text = myToDoSet[position].title
-        binding.content.text = myToDoSet[position].content
+        holder.bind(myToDoSet[position])
     }
 
 }

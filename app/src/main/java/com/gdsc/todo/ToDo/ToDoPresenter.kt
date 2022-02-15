@@ -17,4 +17,5 @@ class ToDoPresenter(val toDoView: ToDoContract.View): ToDoContract.Presenter {
     override fun addToDo(myToDoSet: MutableList<MyToDoList>,title: String, content: String) {
         myToDoSet.add(MyToDoList(title, content))
     }
+
 }

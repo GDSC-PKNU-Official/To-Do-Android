@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gdsc.todo.AddToDo.AddToDoActivity
 import com.gdsc.todo.R
 import com.gdsc.todo.databinding.ActivityToDoBinding
@@ -18,9 +20,9 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
     // 사용자의 Input이 주어지면 뷰를 통해 Presenter로 흐름이 이어지므로
     // 뷰가 Presenter를 알고 있어야 한다.
     override lateinit var presenter: ToDoContract.Presenter
-    private lateinit var todoTitle: TextView
-    private lateinit var todoDetail: TextView
-    private val myToDoSet = ListDatasource().loadMyToDoList()
+    private lateinit var myToDoSet: MutableList<MyToDoList>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var toDoAdapter: ToDoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,40 +30,46 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
         setContentView(binding.root)
 
         presenter = ToDoPresenter(this)
+        myToDoSet = ListDatasource().loadMyToDoList()
+        recyclerView = binding.todoRecyclerView
 
         binding.mainAddButton.setOnClickListener {
             val intent = Intent(this, AddToDoActivity::class.java)
             startActivity(intent)
         }
-
         setRecyclerView(myToDoSet)
+
+        if(getTitlee()!=null && getContent()!=null){
+            myToDoSet.add(MyToDoList(getTitlee().toString(), getContent().toString()))
+            toDoAdapter?.notifyDataSetChanged()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        val binding = ActivityToDoBinding.inflate(layoutInflater)
-        val title = setTitle()
-        val content = setContent()
-        presenter.addToDo(myToDoSet, title, content)
-        binding.todoRecyclerView.adapter?.notifyDataSetChanged()
+//        presenter.addToDo(myToDoSet, getTitlee().toString(), getContent().toString())
+//        myToDoSet.add(MyToDoList(getTitlee().toString(), getContent().toString()))
+//        toDoAdapter?.notifyDataSetChanged()
     }
 
-    override fun setTitle(): String {
+    override fun getTitlee(): String? {
         val title = intent.getStringExtra(R.string.title.toString()).toString()
         Log.d(TAG2, title)
-        return title
+        if(title.isNotEmpty()) return title
+        else return null
     }
 
-    override fun setContent(): String {
+    override fun getContent(): String? {
         val content = intent.getStringExtra(R.string.content.toString()).toString()
         Log.d(TAG2, content)
-        return content
+        if(content.isNotEmpty()) return content
+        else return null
     }
 
     override fun setRecyclerView(myToDoSet: List<MyToDoList>) {
-        val binding = ActivityToDoBinding.inflate(layoutInflater)
-        val recyclerView = binding.todoRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ToDoAdapter(myToDoSet)
+        toDoAdapter = ToDoAdapter(myToDoSet)
+        recyclerView.apply{
+            adapter = toDoAdapter
+        }
     }
 }
