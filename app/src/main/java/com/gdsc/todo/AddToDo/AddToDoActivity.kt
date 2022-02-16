@@ -3,13 +3,11 @@ package com.gdsc.todo.AddToDo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import com.gdsc.todo.R
 import com.gdsc.todo.ToDo.ToDoActivity
-import com.gdsc.todo.ToDo.ToDoPresenter
 import com.gdsc.todo.databinding.ActivityAddToDoBinding
 import com.gdsc.todo.model.ListDatasource
 import com.gdsc.todo.model.MyToDoList
@@ -20,6 +18,7 @@ class AddToDoActivity : AppCompatActivity(), AddToDoContract.View {
     override lateinit var presenter: AddToDoContract.Presenter
     private lateinit var title: TextView
     private lateinit var content: TextView
+    private lateinit var myToDoSet: MutableList<MyToDoList>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +29,7 @@ class AddToDoActivity : AppCompatActivity(), AddToDoContract.View {
         content = binding.addTodoContent
 
         presenter = AddToDoPresenter(this)
+        myToDoSet = ListDatasource().loadMyToDoList()
 
         setSupportActionBar(binding.addTodoToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -37,11 +37,12 @@ class AddToDoActivity : AppCompatActivity(), AddToDoContract.View {
         // 할 일 추가 버튼
         binding.addTodoButton.setOnClickListener {
             if(title.text.isNotEmpty() && content.text.isNotEmpty()){
-                presenter.saveToDo(title.text.toString(), content.text.toString())
-                title.text = ""
-                content.text = ""
+                presenter.saveToDo(myToDoSet, title.text.toString(), content.text.toString())
+                // myToDoSet.add(MyToDoList(title.text.toString(), content.text.toString()))
                 val intent = Intent(this, ToDoActivity::class.java)
                 presenter.sendToDo(title.text.toString(), content.text.toString(), intent)
+                title.text = null
+                content.text = null
                 startActivity(intent)
             } else{
                 showEmptyToDoError()
