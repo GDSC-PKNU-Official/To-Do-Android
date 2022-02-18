@@ -14,32 +14,27 @@
         android:autofillHints=""
         android:hint="@string/typeTitle"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@id/editToDo_ContentET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editToDo_ContentET"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:autofillHints=""
-        android:gravity="start|top"
-        android:hint="@string/typeContent"
-        android:inputType="textMultiLine"
-        android:singleLine="false"
-        app:layout_constraintBottom_toTopOf="@id/editToDo_SaveBTN"
-        app:layout_constraintTop_toBottomOf="@id/editToDo_TitleET" />
-
-    <Button
-        android:id="@+id/editToDo_SaveBTN"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/editToDo_Date_Created"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="@string/save"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editToDo_TitleET"
+        tools:text="Date created: " />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editToDoSaveBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_baseline_check_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editToDo_ContentET" />
+        android:contentDescription="@string/addToDoButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
