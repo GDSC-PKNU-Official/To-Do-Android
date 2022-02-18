@@ -1,3 +1,12 @@
 package com.gdsc.todo.model
 
-data class MyToDoList(val title: String, val content: String)
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class MyToDoList(
+    @PrimaryKey val id: Int,
+
+    val title: String,
+    val content: String
+)
