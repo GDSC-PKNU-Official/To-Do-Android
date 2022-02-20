@@ -6,6 +6,8 @@ import androidx.room.Insert
 import androidx.room.Query;
 import com.gdsc.todo.model.TodoModel
 
+
+// Data Access Object
 @Dao
 interface TodoDAO {
     @Query("SELECT * FROM todoList ORDER BY timeStamp ASC")

@@ -6,9 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "ToDoList")
 data class TodoModel(
-    @PrimaryKey(autoGenerate = true)
-    var id: Long,
-
     @ColumnInfo(name = "title")
     val title: String,
 
@@ -18,5 +15,6 @@ data class TodoModel(
     @ColumnInfo(name = "checked")
     var checked: Boolean
 ) {
-    constructor() : this(0, "", "", false)
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
 }

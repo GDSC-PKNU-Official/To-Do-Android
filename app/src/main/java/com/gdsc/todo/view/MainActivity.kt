@@ -5,16 +5,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gdsc.todo.R
 import com.gdsc.todo.databinding.ActivityMainBinding
 import com.gdsc.todo.model.TodoModel
 import com.gdsc.todo.view.adapter.TodoListAdapter
+import com.gdsc.todo.viewmodel.TodoViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var todoViewModel: TodoViewModel
+    private lateinit var todoListAdapter: TodoListAdapter
+
+    //    private val todoItems: List<TodoModel> = listOf()
     private val todoItems: ArrayList<TodoModel> = ArrayList()   // 자료를 동적으로 변경할 수 있어서 ArrayList를 사용
     private var backKeyPressed: Long = 0
 
@@ -25,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         initBinding()
         initRecyclerView()
         initAddButton()
+//        initViewModel()
+
     }
 
     override fun onBackPressed() {
@@ -46,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         binding.mainRV.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            //layoutManager = LinearLayoutManager(this@MainActivity)
         }
     }
 
@@ -59,10 +67,20 @@ class MainActivity : AppCompatActivity() {
         val getDate = intent.getStringExtra("editDate")
 
         if (getTitle != null && getDate != null) {
+//            todoItems[TodoModel(getTitle, getDate, false)]
             todoItems.add(TodoModel(getTitle, getDate, false))
             binding.mainRV.adapter = TodoListAdapter(todoItems)
         }
     }
+
+    private fun initViewModel() {
+        todoViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(TodoViewModel::class.java)
+//        todoViewModel.getTodoList().observe(
+//            this, Observer { observable, any -> })
+//        todoViewModel.getTodoList().observe(this, Observer { todoListAdapter.setTodoItems(it)}
+
+    }
+
 }
 
 

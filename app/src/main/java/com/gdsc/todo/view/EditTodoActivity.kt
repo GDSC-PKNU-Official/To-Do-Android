@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat as SimpleDateFormat
 class EditTodoActivity : AppCompatActivity() {
     private lateinit var editBinding: ActivityEditTodoBinding
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_todo)
@@ -32,7 +31,6 @@ class EditTodoActivity : AppCompatActivity() {
         setContentView(editBinding.root)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun addItem() {
         val todoTimeStamp = DateFormat.getDateTimeInstance().format(System.currentTimeMillis()).toString()
 
