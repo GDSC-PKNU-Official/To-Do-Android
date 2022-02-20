@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gdsc.todo.databinding.ItemTodoBinding
-import com.gdsc.todo.model.MyToDoList
+import com.gdsc.todo.model.entity.MyToDoList
 
 class ToDoAdapter(
     private val myToDoSet: List<MyToDoList>

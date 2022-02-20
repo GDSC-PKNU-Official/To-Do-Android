@@ -1,18 +1,20 @@
 package com.gdsc.todo.ToDo
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gdsc.todo.AddToDo.AddToDoActivity
 import com.gdsc.todo.R
 import com.gdsc.todo.databinding.ActivityToDoBinding
-import com.gdsc.todo.model.ListDatasource
-import com.gdsc.todo.model.MyToDoList
+import com.gdsc.todo.model.ToDoDatabase
+import com.gdsc.todo.model.local.ListDatasource
+import com.gdsc.todo.model.entity.MyToDoList
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 const val TAG2 = "ToDoActivity"
 
@@ -23,6 +25,8 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
     private lateinit var myToDoSet: MutableList<MyToDoList>
     private lateinit var recyclerView: RecyclerView
     private lateinit var toDoAdapter: ToDoAdapter
+    private lateinit var newToDo: MyToDoList
+    private lateinit var db: ToDoDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,40 +34,28 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
         setContentView(binding.root)
 
         presenter = ToDoPresenter(this)
-        myToDoSet = ListDatasource().loadMyToDoList()
         recyclerView = binding.todoRecyclerView
+        // 룸에 있는 데이터 불러오기
+        db = ToDoDatabase.getInstance(applicationContext)!!
+        val r = Runnable{
+            myToDoSet = db!!.toDoDao().getAll() as MutableList<MyToDoList>
+            // room에서 불러온 데이터로 리사이클러뷰 만들기
+            setRecyclerView(myToDoSet)
+            recyclerView.adapter?.notifyDataSetChanged()
+        }
+        val thread = Thread(r)
+        thread.start()
 
         binding.mainAddButton.setOnClickListener {
             val intent = Intent(this, AddToDoActivity::class.java)
             startActivity(intent)
+            finish()
         }
-        setRecyclerView(myToDoSet)
 
-        if(getTitlee()!=null && getContent()!=null){
-            myToDoSet.add(MyToDoList(getTitlee().toString(), getContent().toString()))
-            toDoAdapter?.notifyDataSetChanged()
-        }
     }
 
     override fun onResume() {
         super.onResume()
-//        presenter.addToDo(myToDoSet, getTitlee().toString(), getContent().toString())
-//        myToDoSet.add(MyToDoList(getTitlee().toString(), getContent().toString()))
-//        toDoAdapter?.notifyDataSetChanged()
-    }
-
-    override fun getTitlee(): String? {
-        val title = intent.getStringExtra(R.string.title.toString()).toString()
-        Log.d(TAG2, title)
-        if(title.isNotEmpty()) return title
-        else return null
-    }
-
-    override fun getContent(): String? {
-        val content = intent.getStringExtra(R.string.content.toString()).toString()
-        Log.d(TAG2, content)
-        if(content.isNotEmpty()) return content
-        else return null
     }
 
     override fun setRecyclerView(myToDoSet: List<MyToDoList>) {
