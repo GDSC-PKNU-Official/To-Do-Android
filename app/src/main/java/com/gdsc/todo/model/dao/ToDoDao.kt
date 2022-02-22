@@ -1,12 +1,13 @@
-package com.gdsc.todo.model.local
+package com.gdsc.todo.model.dao
 
 import androidx.room.*
+import androidx.room.OnConflictStrategy.REPLACE
 import com.gdsc.todo.model.entity.MyToDoList
 
 @Dao
 interface ToDoDao {
     // 테이블에 데이터 삽입
-    @Insert
+    @Insert(onConflict = REPLACE)
     fun insert(toDo: MyToDoList)
 
     // 테이블의 데이터 수정

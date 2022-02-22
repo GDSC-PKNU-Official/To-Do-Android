@@ -6,7 +6,9 @@ import com.gdsc.todo.model.entity.MyToDoList
 
 interface ToDoContract {
     interface View : BaseView<Presenter> {
-        fun setRecyclerView(myToDoSet: List<MyToDoList>)
+        fun setRecyclerView()
+        fun getAllTodo()
+        fun startAddToDoActivity()
     }
 
     interface Presenter : BasePresenter {

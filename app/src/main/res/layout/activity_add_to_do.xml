@@ -25,19 +25,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_addTodo_appbar"
-        android:hint="Title"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="13dp"
         android:background="@android:color/transparent"
-        android:layout_margin="13dp"
-        android:textStyle="bold"/>
+        android:hint="Title"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/addTodo_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/addTodo_title"
-        android:background="@android:color/transparent"
         android:layout_marginLeft="13dp"
         android:layout_marginRight="13dp"
+        android:background="@android:color/transparent"
         android:hint="Enter your TO-DO here." />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

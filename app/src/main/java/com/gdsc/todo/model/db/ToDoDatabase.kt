@@ -1,15 +1,15 @@
-package com.gdsc.todo.model
+package com.gdsc.todo.model.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.gdsc.todo.model.entity.MyToDoList
-import com.gdsc.todo.model.local.ToDoDao
+import com.gdsc.todo.model.dao.ToDoDao
 
-@Database(entities = [MyToDoList::class], version = 1)
+@Database(entities = [MyToDoList::class], version = 4)
 abstract class ToDoDatabase: RoomDatabase() {
-    abstract fun toDoDao(): ToDoDao
+    abstract fun getToDoDao(): ToDoDao
 
     companion object {
         private var instance: ToDoDatabase? = null
@@ -26,6 +26,10 @@ abstract class ToDoDatabase: RoomDatabase() {
                 }
             }
             return instance
+        }
+
+        fun destroyInstance() {
+            instance = null
         }
     }
 }
