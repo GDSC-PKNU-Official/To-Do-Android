@@ -17,10 +17,11 @@ class AddToDoPresenter(val addToDoView: AddToDoContract.View): AddToDoContract.P
     }
 
     // room에 투두 추가하기
-    override fun saveToDo(db: ToDoDatabase, title: String, content: String) {
+    override fun saveToDo(db: ToDoDatabase) {
         Thread{
-            val newToDo = MyToDoList(title = title, content = content)
+            val newToDo = MyToDoList(title = addToDoView.getTitlee().toString(), content = addToDoView.getContent().toString())
             db.getToDoDao().insert(newToDo)
         }.start()
+        Thread.sleep(1000) // 있어야 제목이 저장됨(왜?)
     }
 }

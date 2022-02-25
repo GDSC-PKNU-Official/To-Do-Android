@@ -39,7 +39,7 @@ class AddToDoActivity : AppCompatActivity(), AddToDoContract.View {
         // 할 일 추가 버튼
         binding.addTodoButton.setOnClickListener {
             if(getTitlee()!=null  && getContent()!=null){
-                (presenter as AddToDoPresenter).saveToDo(db ?: throw IllegalAccessException(), getTitlee().toString(), getContent().toString())
+                (presenter as AddToDoPresenter).saveToDo(db ?: throw IllegalAccessException())
                 setNull()
                 startToDoActivity()
             } else{
@@ -77,13 +77,13 @@ class AddToDoActivity : AppCompatActivity(), AddToDoContract.View {
         return content.text.toString()
     }
 
-    override fun startToDoActivity() {
+    private fun startToDoActivity() {
         val intent = Intent(this, ToDoActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    override fun setNull() {
+    private fun setNull() {
         title.text = null
         content.text = null
     }

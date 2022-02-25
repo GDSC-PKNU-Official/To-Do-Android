@@ -10,11 +10,9 @@ interface AddToDoContract {
         fun showEmptyToDoError()
         fun getTitlee(): String?
         fun getContent(): String?
-        fun startToDoActivity()
-        fun setNull()
     }
 
     interface Presenter : BasePresenter {
-        fun saveToDo(db: ToDoDatabase, title: String, content: String)
+        fun saveToDo(db: ToDoDatabase)
     }
 }

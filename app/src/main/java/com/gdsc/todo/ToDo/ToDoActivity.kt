@@ -51,7 +51,6 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
     }
 
     override fun getAllTodo() {
-        db = ToDoDatabase.getInstance(applicationContext) ?: throw IllegalAccessException()
         Thread{
             myToDoSet = db!!.getToDoDao().getAll()
             // 리사이클러뷰 설정
@@ -74,7 +73,7 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
         db = null
     }
 
-    override fun startAddToDoActivity(){
+    private fun startAddToDoActivity(){
         val intent = Intent(this, AddToDoActivity::class.java)
         startActivity(intent)
     }

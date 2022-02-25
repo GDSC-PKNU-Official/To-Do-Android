@@ -8,7 +8,6 @@ interface ToDoContract {
     interface View : BaseView<Presenter> {
         fun setRecyclerView()
         fun getAllTodo()
-        fun startAddToDoActivity()
     }
 
     interface Presenter : BasePresenter {
