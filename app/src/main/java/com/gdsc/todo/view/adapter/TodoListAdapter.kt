@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gdsc.todo.databinding.TodoItemListBinding
 import com.gdsc.todo.model.TodoModel
+import com.gdsc.todo.viewmodel.TodoViewModel
 
 
 //  model의 TodoModel 리스트를 생성자로부터 전달받아 RecyclerView.Adapter를 상속받고,
@@ -13,7 +14,12 @@ class TodoListAdapter(todoItems: ArrayList<TodoModel>) : RecyclerView.Adapter<To
     private var todoItems: List<TodoModel> = listOf()
 
     class TodoViewHolder(private val binding: TodoItemListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(todoModel: TodoModel){
+        lateinit var todoModel: TodoModel
+        lateinit var todoViewModel: TodoViewModel
+
+        fun bind(todoModel: TodoModel, todoViewModel: TodoViewModel){
+//            binding.todo
+
             binding.todoItemListTitleTV.text = todoModel.title
             binding.todoItemListTimeStampTV.text = todoModel.timeStamp
             binding.todoItemListCheckCB.isChecked = todoModel.checked

@@ -12,7 +12,7 @@ data class TodoModel(
     @ColumnInfo(name = "timeStamp")
     val timeStamp: String,
 
-    @ColumnInfo(name = "checked")
+    @ColumnInfo(name = "isChecked")
     var checked: Boolean
 ) {
     @PrimaryKey(autoGenerate = true)

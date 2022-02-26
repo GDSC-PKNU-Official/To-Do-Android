@@ -1,22 +1,23 @@
 package com.gdsc.todo.view
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
-import androidx.annotation.RequiresApi
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.gdsc.todo.R
 import com.gdsc.todo.databinding.ActivityEditTodoBinding
+import com.gdsc.todo.databinding.ActivityMainBinding
+import com.gdsc.todo.model.TodoModel
+import com.gdsc.todo.viewmodel.TodoViewModel
 import java.text.DateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.text.SimpleDateFormat as SimpleDateFormat
 
 
 
 class EditTodoActivity : AppCompatActivity() {
     private lateinit var editBinding: ActivityEditTodoBinding
+    private lateinit var mainBinding: ActivityMainBinding
+    private val todoViewModel: TodoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,9 @@ class EditTodoActivity : AppCompatActivity() {
     private fun initBinding() {
         editBinding = ActivityEditTodoBinding.inflate(layoutInflater)
         setContentView(editBinding.root)
+
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mainBinding.root)
     }
 
     private fun addItem() {
@@ -42,13 +46,16 @@ class EditTodoActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val todoModel = TodoModel(todoTitle, todoTimeStamp, false)
+            todoViewModel.insert(todoModel)
+            Toast.makeText(this,"Successfully added!", Toast.LENGTH_SHORT).show()
+
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("editTitle", todoTitle)
             intent.putExtra("editDate", todoTimeStamp)
 
             startActivity(intent)
             finish()
-
         }
     }
 }

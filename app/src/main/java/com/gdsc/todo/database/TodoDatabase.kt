@@ -12,48 +12,41 @@ abstract class TodoDatabase : RoomDatabase() {
 
     // 싱글톤 사용
     companion object {
-        /* @Volatile = 접근가능한 변수의 값을 cache를 통해 사용하지 않고
-        thread가 직접 main memory에 접근 하게하여 동기화. */
         @Volatile
-        private var instance: TodoDatabase? = null
+        private var INSTANCE: TodoDatabase? = null
 
-        // 싱글톤으로 생성 (자주 생성 시 성능 손해). 이미 존재할 경우 생성하지 않고 바로 반환
-        fun getInstance(context: Context): TodoDatabase? {
-            if (instance == null) {
-                synchronized(TodoDatabase::class) {
+        fun getInstance(context: Context): TodoDatabase{
+            synchronized(this){
+                var instance = INSTANCE
+                if(instance == null){
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         TodoDatabase::class.java,
                         "tb_todoList"
-                    ).build()
+                    ).fallbackToDestructiveMigration()
+                        .build()
+                    INSTANCE = instance
                 }
+                return instance
             }
-            return instance
         }
+
+//        fun getInstance(context: Context): TodoDatabase {
+//            if (INSTANCE == null) {
+//                synchronized(this) {
+//                    INSTANCE = Room.databaseBuilder(
+//                        context.applicationContext,
+//                        TodoDatabase::class.java,
+//                        "tb_todoList"
+//                    )
+//                        .fallbackToDestructiveMigration()
+//                        .build()
+//                }
+//            } else {
+//                throw IllegalStateException("TodoRepository 초기화 해야합니다!")
+//            }
+//            return INSTANCE
+//        }
     }
 }
-/*    companion object {
-        private var INSTANCE: TodoDatabase? = null
-
-        fun getInstance(context: Context): TodoDatabase? {
-            if (INSTANCE == null) {
-                synchronized(TodoDatabase::class.java) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        TodoDatabase::class.java,
-                        "tb_todoList"
-                    ).build()
-                }
-//            INSTANCE ?: synchronized(TodoDatabase::class) {
-//                INSTANCE = Room.databaseBuilder(
-//                    context.applicationContext,
-//                    TodoDatabase::class.java,
-//                    "tb_todoList"
-//                )
-//                    .fallbackToDestructiveMigration()
-//                    .build()
-            }
-            return INSTANCE
-        }
-    }*/
 

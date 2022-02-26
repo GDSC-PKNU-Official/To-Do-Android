@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initBinding()
+        initAddButton()
         initViewModel()
         initRecyclerView()
-        initAddButton()
     }
 
     override fun onBackPressed() {
@@ -46,11 +46,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    private fun initAddButton() {
+        binding.mainFAB.setOnClickListener {
+            val intent = Intent(this, EditTodoActivity::class.java)
+            startActivity(intent)
+        }
+        getTodoItems()
+    }
+
     private fun initViewModel() {
-        todoViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(TodoViewModel::class.java)
-        todoViewModel.getTodo().observe(this, Observer {
-            todoListAdapter.setTodoItems(it as ArrayList<TodoModel>)
-        })
+
     }
 
     private fun initRecyclerView() {
@@ -62,13 +67,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initAddButton() {
-        binding.mainFAB.setOnClickListener {
-            val intent = Intent(this, EditTodoActivity::class.java)
-            startActivity(intent)
-        }
-        getTodoItems()
-    }
+
 
     private fun getTodoItems() {
         val getTitle = intent.getStringExtra("editTitle")
@@ -77,10 +76,6 @@ class MainActivity : AppCompatActivity() {
         if(getTitle != null && getDate != null){
             Log.d("Activity Intent", "$getTitle $getDate 입니다.")
             val todoModel = TodoModel(getTitle, getDate, false)
-            todoViewModel.insertTodo(todoModel)
-//            todoItems.add(todoModel)
-//            binding.mainRV.adapter = TodoListAdapter(todoItems)
-//            todoViewModel.insertTodo(todoItems)
         }
     }
 }

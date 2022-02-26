@@ -1,22 +1,15 @@
 package com.gdsc.todo.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import com.gdsc.todo.database.TodoDAO
-import com.gdsc.todo.database.TodoDatabase
 import com.gdsc.todo.model.TodoModel
 
+class TodoRepository(val todoDAO: TodoDAO) {
+    fun getAllTodoList(): LiveData<List<TodoModel>> = todoDAO.getAllTodoList()
 
-class TodoRepository(private val todoDAO: TodoDAO) {
-    private val todoItems: LiveData<List<TodoModel>> = todoDAO.getTodoList()
+    suspend fun insert(todoModel: TodoModel) = todoDAO.insert(todoModel)
 
-    fun getTodo(): LiveData<List<TodoModel>> {
-        return todoItems
-    }
+    suspend fun update(todoModel: TodoModel) = todoDAO.update(todoModel)
 
-    fun insertTodo(todoModel: TodoModel) {
-        Thread(Runnable {
-            todoDAO.insert(todoModel)
-        }).start()
-    }
+    suspend fun delete(todoModel: TodoModel) = todoDAO.delete(todoModel)
 }
