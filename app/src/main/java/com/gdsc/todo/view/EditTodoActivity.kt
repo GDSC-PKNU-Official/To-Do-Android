@@ -48,6 +48,7 @@ class EditTodoActivity : AppCompatActivity() {
 
             startActivity(intent)
             finish()
+
         }
     }
 }

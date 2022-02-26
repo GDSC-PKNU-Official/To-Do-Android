@@ -1,18 +1,15 @@
 package com.gdsc.todo.database;
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao;
-import androidx.room.Insert
-import androidx.room.Query;
+import androidx.room.*
 import com.gdsc.todo.model.TodoModel
 
-
-// Data Access Object
 @Dao
 interface TodoDAO {
-    @Query("SELECT * FROM todoList ORDER BY timeStamp ASC")
+    @Query("SELECT * FROM tb_todoList ORDER BY timeStamp ASC")
     fun getTodoList(): LiveData<List<TodoModel>>
 
-    @Insert
-    fun insertTodo(todoModel: TodoModel)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)    // 입력 중복일 경우 덮어쓰기.
+    fun insert(todoModel: TodoModel)
+
 }

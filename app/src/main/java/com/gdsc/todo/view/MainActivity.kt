@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.gdsc.todo.R
 import com.gdsc.todo.databinding.ActivityMainBinding
 import com.gdsc.todo.model.TodoModel
 import com.gdsc.todo.view.adapter.TodoListAdapter
 import com.gdsc.todo.viewmodel.TodoViewModel
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var todoViewModel: TodoViewModel
     private lateinit var todoListAdapter: TodoListAdapter
 
-    //    private val todoItems: List<TodoModel> = listOf()
     private val todoItems: ArrayList<TodoModel> = ArrayList()   // 자료를 동적으로 변경할 수 있어서 ArrayList를 사용
     private var backKeyPressed: Long = 0
 
@@ -29,20 +27,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initBinding()
+        initViewModel()
         initRecyclerView()
         initAddButton()
-//        initViewModel()
-
     }
 
     override fun onBackPressed() {
-//        super.onBackPressed()
-//        뒤로가기 버튼 막기
         if (System.currentTimeMillis() - backKeyPressed >= 2000) {
             backKeyPressed = System.currentTimeMillis()
             Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_LONG).show()
         } else {
-            finish()
+            System.exit(0)
         }
     }
 
@@ -51,10 +46,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    private fun initViewModel() {
+        todoViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(TodoViewModel::class.java)
+        todoViewModel.getTodo().observe(this, Observer {
+            todoListAdapter.setTodoItems(it as ArrayList<TodoModel>)
+        })
+    }
+
     private fun initRecyclerView() {
+        todoListAdapter = TodoListAdapter(todoItems)
+
         binding.mainRV.apply {
             setHasFixedSize(true)
-            //layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = todoListAdapter
         }
     }
 
@@ -63,24 +67,22 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, EditTodoActivity::class.java)
             startActivity(intent)
         }
+        getTodoItems()
+    }
+
+    private fun getTodoItems() {
         val getTitle = intent.getStringExtra("editTitle")
         val getDate = intent.getStringExtra("editDate")
 
-        if (getTitle != null && getDate != null) {
-//            todoItems[TodoModel(getTitle, getDate, false)]
-            todoItems.add(TodoModel(getTitle, getDate, false))
-            binding.mainRV.adapter = TodoListAdapter(todoItems)
+        if(getTitle != null && getDate != null){
+            Log.d("Activity Intent", "$getTitle $getDate 입니다.")
+            val todoModel = TodoModel(getTitle, getDate, false)
+            todoViewModel.insertTodo(todoModel)
+//            todoItems.add(todoModel)
+//            binding.mainRV.adapter = TodoListAdapter(todoItems)
+//            todoViewModel.insertTodo(todoItems)
         }
     }
-
-    private fun initViewModel() {
-        todoViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(TodoViewModel::class.java)
-//        todoViewModel.getTodoList().observe(
-//            this, Observer { observable, any -> })
-//        todoViewModel.getTodoList().observe(this, Observer { todoListAdapter.setTodoItems(it)}
-
-    }
-
 }
 
 
