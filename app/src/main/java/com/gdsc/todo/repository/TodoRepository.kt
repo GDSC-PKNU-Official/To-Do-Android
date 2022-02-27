@@ -1,15 +1,31 @@
 package com.gdsc.todo.repository
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import com.gdsc.todo.database.TodoDAO
+import com.gdsc.todo.database.TodoDatabase
 import com.gdsc.todo.model.TodoModel
 
-class TodoRepository(val todoDAO: TodoDAO) {
-    fun getAllTodoList(): LiveData<List<TodoModel>> = todoDAO.getAllTodoList()
+class TodoRepository(application: Application) {
+    private var todoDatabase: TodoDatabase = TodoDatabase.getInstance(application)!!
+    private var todoDAO: TodoDAO = todoDatabase.todoDAO()
+    private var todoItems: LiveData<List<TodoModel>> = todoDAO.getAllTodoList()
 
-    suspend fun insert(todoModel: TodoModel) = todoDAO.insert(todoModel)
+    fun getAllTodoList(): LiveData<List<TodoModel>> = todoItems
 
-    suspend fun update(todoModel: TodoModel) = todoDAO.update(todoModel)
+    suspend fun insert(todoModel: TodoModel) {
+        try {
+            todoDAO.insert(todoModel)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 
-    suspend fun delete(todoModel: TodoModel) = todoDAO.delete(todoModel)
+    suspend fun delete(todoModel: TodoModel) {
+        try {
+            todoDAO.delete(todoModel)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 }

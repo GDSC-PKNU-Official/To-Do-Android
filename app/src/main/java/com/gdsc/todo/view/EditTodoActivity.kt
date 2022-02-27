@@ -13,7 +13,6 @@ import com.gdsc.todo.viewmodel.TodoViewModel
 import java.text.DateFormat
 
 
-
 class EditTodoActivity : AppCompatActivity() {
     private lateinit var editBinding: ActivityEditTodoBinding
     private lateinit var mainBinding: ActivityMainBinding
@@ -37,23 +36,18 @@ class EditTodoActivity : AppCompatActivity() {
 
     private fun addItem() {
         val todoTimeStamp = DateFormat.getDateTimeInstance().format(System.currentTimeMillis()).toString()
-
         editBinding.editToDoDateCreated.text = todoTimeStamp
         editBinding.editToDoSaveBTN.setOnClickListener {
+
             val todoTitle = editBinding.editToDoTitleET.text.toString()
-            if(todoTitle == ""){
+            if (todoTitle == "") {
                 Toast.makeText(this, "제목이 비어있습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val todoModel = TodoModel(todoTitle, todoTimeStamp, false)
-            todoViewModel.insert(todoModel)
-            Toast.makeText(this,"Successfully added!", Toast.LENGTH_SHORT).show()
-
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("editTitle", todoTitle)
             intent.putExtra("editDate", todoTimeStamp)
-
             startActivity(intent)
             finish()
         }
