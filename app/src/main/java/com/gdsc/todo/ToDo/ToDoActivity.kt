@@ -40,6 +40,8 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
     }
 
     override fun setRecyclerView() {
+        // 안드로이드 OS는 UI 자원 사용은 UI Thread에서만 가능하므로
+        // Sub Thread에서 UI 자원을 다루기 위해 runOnUiThread를 사용
         runOnUiThread {
             toDoAdapter = ToDoAdapter(myToDoSet)
             toDoAdapter.notifyDataSetChanged()
@@ -51,6 +53,7 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
     }
 
     override fun getAllTodo() {
+        // 메인 쓰레드에서 Room DB 접근 시 에러가 발생하므로 백그라운드에서 작업해야 한다.
         Thread{
             myToDoSet = db!!.getToDoDao().getAll()
             // 리사이클러뷰 설정

@@ -11,9 +11,11 @@ import com.gdsc.todo.model.dao.ToDoDao
 abstract class ToDoDatabase: RoomDatabase() {
     abstract fun getToDoDao(): ToDoDao
 
+    // 데이터베이스 객체를 인스턴스 할 때 싱글톤으로 구현
     companion object {
         private var instance: ToDoDatabase? = null
 
+        // 데이터베이스 객체를 반환
         @Synchronized
         fun getInstance(context: Context): ToDoDatabase? {
             if(instance == null){
@@ -28,6 +30,7 @@ abstract class ToDoDatabase: RoomDatabase() {
             return instance
         }
 
+        // 데이터베이스 객체를 삭제
         fun destroyInstance() {
             instance = null
         }
