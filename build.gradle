@@ -7,8 +7,10 @@ buildscript {
 
         hilt_version = "2.40"
         ktx_version = "1.4.0"
-        nav_version = "2.3.5"
-        room_version = "2.3.0"
+        nav_version = "2.4.1"
+        room_version = "2.4.1"
+        mock_version = "4.0.0"
+        junit_version = "4.13.2"
     }
 
     repositories {
