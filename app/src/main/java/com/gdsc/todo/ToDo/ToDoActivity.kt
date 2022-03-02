@@ -43,7 +43,7 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
         // 안드로이드 OS는 UI 자원 사용은 UI Thread에서만 가능하므로
         // Sub Thread에서 UI 자원을 다루기 위해 runOnUiThread를 사용
         runOnUiThread {
-            toDoAdapter = ToDoAdapter(myToDoSet)
+            toDoAdapter = ToDoAdapter(myToDoSet, db ?: throw IllegalAccessException())
             toDoAdapter.notifyDataSetChanged()
             recyclerView.apply {
                 adapter = toDoAdapter

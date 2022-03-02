@@ -5,15 +5,28 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gdsc.todo.databinding.ItemTodoBinding
+import com.gdsc.todo.model.db.ToDoDatabase
 import com.gdsc.todo.model.entity.MyToDoList
 
 class ToDoAdapter(
-    private val myToDoSet: List<MyToDoList>
+    private val myToDoSet: List<MyToDoList>, private val db: ToDoDatabase
 ): RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
-    class ToDoViewHolder(private val binding: ItemTodoBinding): RecyclerView.ViewHolder(binding.root){
+    class ToDoViewHolder(val binding: ItemTodoBinding): RecyclerView.ViewHolder(binding.root){
+
         fun bind(item: MyToDoList) {
             binding.title.text = item.title
             binding.content.text = item.content
+        }
+
+        // 체크박스 클릭 시 데이터 삭제
+        fun checking(item: MyToDoList, db: ToDoDatabase){
+            binding.checked.setOnCheckedChangeListener { _, _ ->
+                if(binding.checked.isChecked){
+                    Thread{
+                        db.getToDoDao().delete(item)
+                    }.start()
+                }
+            }
         }
     }
 
@@ -31,6 +44,7 @@ class ToDoAdapter(
 
     override fun onBindViewHolder(holder: ToDoViewHolder, position: Int) {
         holder.bind(myToDoSet[position])
+        holder.checking(myToDoSet[position], db)
     }
 
 }

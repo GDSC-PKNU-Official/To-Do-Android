@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.gdsc.todo.model.entity.MyToDoList
 import com.gdsc.todo.model.dao.ToDoDao
 
-@Database(entities = [MyToDoList::class], version = 4)
+@Database(entities = [MyToDoList::class], version = 6)
 abstract class ToDoDatabase: RoomDatabase() {
     abstract fun getToDoDao(): ToDoDao
 
