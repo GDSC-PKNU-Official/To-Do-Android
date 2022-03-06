@@ -2,6 +2,7 @@ package com.gdsc.todo.ToDo
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gdsc.todo.databinding.ItemTodoBinding
@@ -21,6 +22,7 @@ class ToDoAdapter(
         // 체크박스 클릭 시 데이터 삭제
         fun checking(item: MyToDoList, db: ToDoDatabase){
             binding.checked.setOnCheckedChangeListener { _, _ ->
+                Log.d("ToDoAdapter", binding.checked.isChecked.toString())
                 if(binding.checked.isChecked){
                     Thread{
                         db.getToDoDao().delete(item)

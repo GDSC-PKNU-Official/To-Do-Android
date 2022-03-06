@@ -3,12 +3,14 @@ package com.gdsc.todo.ToDo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gdsc.todo.AddToDo.AddToDoActivity
 import com.gdsc.todo.databinding.ActivityToDoBinding
 import com.gdsc.todo.model.db.ToDoDatabase
 import com.gdsc.todo.model.entity.MyToDoList
+import java.util.*
 
 const val TAG2 = "ToDoActivity"
 
@@ -36,7 +38,6 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
         binding.mainAddButton.setOnClickListener {
             startAddToDoActivity()
         }
-
     }
 
     override fun setRecyclerView() {
