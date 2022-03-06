@@ -1,5 +1,6 @@
 package com.gdsc.todo.ui.home
 
+import android.graphics.Paint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -17,6 +18,12 @@ class ToDoAdapter : ListAdapter<ToDo, BaseViewHolder<ItemTodoBinding>>(diffUtil)
         // TODO: data binding 변수를 대입해줄 것
         holder.binding.item = getItem(position)
         holder.binding.executePendingBindings() // 프레임 예약이 아닌 즉시 실행
+    }
+
+    // TODO: ToDo 속성에 Done 여부를 추가하는 migration을 진행
+    private fun setCancelLineIfDone(binding: ItemTodoBinding) = with(binding) {
+        tvTodoTitle.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+        tvTodoContents.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
     }
 
     companion object {
