@@ -3,14 +3,16 @@ package com.gdsc.todo.AddToDo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import com.gdsc.todo.R
 import com.gdsc.todo.ToDo.ToDoActivity
 import com.gdsc.todo.databinding.ActivityAddToDoBinding
-import com.gdsc.todo.model.ListDatasource
-import com.gdsc.todo.model.MyToDoList
+import com.gdsc.todo.model.db.ToDoDatabase
+import com.gdsc.todo.model.entity.MyToDoList
+import java.lang.Thread.sleep
 
 const val TAG = "AddToDoActivity"
 
@@ -18,7 +20,7 @@ class AddToDoActivity : AppCompatActivity(), AddToDoContract.View {
     override lateinit var presenter: AddToDoContract.Presenter
     private lateinit var title: TextView
     private lateinit var content: TextView
-    private lateinit var myToDoSet: MutableList<MyToDoList>
+    private var db: ToDoDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,30 +29,26 @@ class AddToDoActivity : AppCompatActivity(), AddToDoContract.View {
 
         title = binding.addTodoTitle
         content = binding.addTodoContent
-
         presenter = AddToDoPresenter(this)
-        myToDoSet = ListDatasource().loadMyToDoList()
+        db = ToDoDatabase.getInstance(applicationContext) ?: throw IllegalAccessException()
 
+        // 뒤로가기 버튼 생성
         setSupportActionBar(binding.addTodoToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // 할 일 추가 버튼
         binding.addTodoButton.setOnClickListener {
-            if(title.text.isNotEmpty() && content.text.isNotEmpty()){
-                presenter.saveToDo(myToDoSet, title.text.toString(), content.text.toString())
-                // myToDoSet.add(MyToDoList(title.text.toString(), content.text.toString()))
-                val intent = Intent(this, ToDoActivity::class.java)
-                presenter.sendToDo(title.text.toString(), content.text.toString(), intent)
-                title.text = null
-                content.text = null
-                startActivity(intent)
+            if(getTitlee()!=null  && getContent()!=null){
+                (presenter as AddToDoPresenter).saveToDo(db ?: throw IllegalAccessException())
+                setNull()
+                startToDoActivity()
             } else{
                 showEmptyToDoError()
             }
         }
     }
 
-    // 툴바의 뒤로가기 버튼
+    // 툴바의 뒤로가기 버튼 이벤트
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when(id){
@@ -64,5 +62,29 @@ class AddToDoActivity : AppCompatActivity(), AddToDoContract.View {
 
     override fun showEmptyToDoError() {
         Toast.makeText(this, getString(R.string.show_empty), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        ToDoDatabase.destroyInstance()
+        super.onDestroy()
+    }
+
+    override fun getTitlee(): String? {
+        return title.text.toString()
+    }
+
+    override fun getContent(): String? {
+        return content.text.toString()
+    }
+
+    private fun startToDoActivity() {
+        val intent = Intent(this, ToDoActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun setNull() {
+        title.text = null
+        content.text = null
     }
 }
