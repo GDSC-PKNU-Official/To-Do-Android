@@ -3,6 +3,8 @@ package com.gdsc.todo.ToDo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +24,7 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
     private lateinit var recyclerView: RecyclerView
     private lateinit var toDoAdapter: ToDoAdapter
     private var db: ToDoDatabase? = null
+    private lateinit var viewModel: ToDoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,7 @@ class ToDoActivity : AppCompatActivity(), ToDoContract.View {
 
         presenter = ToDoPresenter(this)
         recyclerView = binding.todoRecyclerView
+        viewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
 
         db = ToDoDatabase.getInstance(applicationContext) ?: throw IllegalAccessException()
 
