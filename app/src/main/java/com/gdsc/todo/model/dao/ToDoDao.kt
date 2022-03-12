@@ -1,9 +1,12 @@
 package com.gdsc.todo.model.dao
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import com.gdsc.todo.model.entity.MyToDoList
 
+// data access objcet로 실 데이터에 접근하도록 도와주는 helper 클래스
 @Dao
 interface ToDoDao {
     // 테이블에 데이터 삽입

@@ -7,8 +7,11 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.gdsc.todo.R
 import com.gdsc.todo.ToDo.ToDoActivity
+import com.gdsc.todo.ToDo.ToDoViewModel
 import com.gdsc.todo.databinding.ActivityAddToDoBinding
 import com.gdsc.todo.model.db.ToDoDatabase
 import com.gdsc.todo.model.entity.MyToDoList
@@ -21,16 +24,19 @@ class AddToDoActivity : AppCompatActivity(), AddToDoContract.View {
     private lateinit var title: TextView
     private lateinit var content: TextView
     private var db: ToDoDatabase? = null
+    private lateinit var viewModel: ToDoViewModel
+    private lateinit var binding: ActivityAddToDoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityAddToDoBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_to_do)
         setContentView(binding.root)
 
         title = binding.addTodoTitle
         content = binding.addTodoContent
         presenter = AddToDoPresenter(this)
         db = ToDoDatabase.getInstance(applicationContext) ?: throw IllegalAccessException()
+        viewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
 
         // 뒤로가기 버튼 생성
         setSupportActionBar(binding.addTodoToolbar)

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="toDoViewModel"
+            type="com.gdsc.todo.ToDo.ToDoViewModel" />
+    </data>
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -31,7 +39,8 @@
         android:layout_marginBottom="13dp"
         android:background="@android:color/transparent"
         android:hint="Title"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="@{toDoViewModel.title}"/>
 
     <EditText
         android:id="@+id/addTodo_content"
@@ -41,7 +50,8 @@
         android:layout_marginLeft="13dp"
         android:layout_marginRight="13dp"
         android:background="@android:color/transparent"
-        android:hint="Enter your TO-DO here." />
+        android:hint="Enter your TO-DO here."
+        android:text="@{toDoViewModel.content}"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addTodo_button"
@@ -49,9 +59,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="19dp"
-        app:tint="@color/white"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="19dp"
         android:backgroundTint="#5BA677"
-        android:src="@drawable/ic_check"/>
+        android:onClick="@{() -> toDoViewModel.addButtonClick()}"
+        android:src="@drawable/ic_check"
+        app:tint="@color/white" />
 
 </RelativeLayout>
+</layout>
