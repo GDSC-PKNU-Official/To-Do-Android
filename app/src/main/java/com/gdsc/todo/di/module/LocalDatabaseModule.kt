@@ -1,4 +1,4 @@
-package com.gdsc.todo.di
+package com.gdsc.todo.di.module
 
 import android.content.Context
 import androidx.room.Room

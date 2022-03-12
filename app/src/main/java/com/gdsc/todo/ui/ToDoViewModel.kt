@@ -2,16 +2,12 @@ package com.gdsc.todo.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.gdsc.todo.DispatcherProvider
+import com.gdsc.todo.di.provider.DispatcherProvider
 import com.gdsc.todo.Event
 import com.gdsc.todo.data.entity.ToDo
 import com.gdsc.todo.data.local.ToDoLocalDataSource
 import com.gdsc.todo.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel

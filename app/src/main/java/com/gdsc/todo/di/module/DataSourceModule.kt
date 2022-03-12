@@ -1,4 +1,4 @@
-package com.gdsc.todo.di
+package com.gdsc.todo.di.module
 
 import com.gdsc.todo.data.local.ToDoLocalDataSource
 import com.gdsc.todo.data.local.ToDoLocalDataSourceImpl

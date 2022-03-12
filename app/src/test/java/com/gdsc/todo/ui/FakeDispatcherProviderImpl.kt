@@ -1,6 +1,6 @@
 package com.gdsc.todo.ui
 
-import com.gdsc.todo.DispatcherProvider
+import com.gdsc.todo.di.provider.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
