@@ -1,7 +1,7 @@
-package com.gdsc.todo.di
+package com.gdsc.todo.di.module
 
-import com.gdsc.todo.DispatcherProvider
-import com.gdsc.todo.DispatcherProviderImpl
+import com.gdsc.todo.di.provider.DispatcherProvider
+import com.gdsc.todo.di.provider.DispatcherProviderImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
