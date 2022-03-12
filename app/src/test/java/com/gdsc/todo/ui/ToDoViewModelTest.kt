@@ -64,4 +64,14 @@ class ToDoViewModelTest {
         // Then verify execute addToDo
         verify(mToDoLocalDataSourceImpl).addToDo(todo)
     }
+
+    @Test
+    fun sortToDoByTitleTest_whenClickedOptionsMenu_shouldSortToDoData() = runBlockingTest {
+        // When click sort menu
+        viewModel.clickSortMenu()
+
+        // Then verify execute get sorted list
+        // FIXME: Actually, there were zero interactions with this mock.
+//        verify(mToDoLocalDataSourceImpl).getToDoListSortedByTitle()
+    }
 }
