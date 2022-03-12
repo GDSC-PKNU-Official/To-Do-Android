@@ -5,4 +5,5 @@
     <string name="title">Title</string>
     <string name="enter_to_do">Enter To-Do</string>
     <string name="new_to_do">New To-Do</string>
+    <string name="sort">정렬</string>
 </resources>
