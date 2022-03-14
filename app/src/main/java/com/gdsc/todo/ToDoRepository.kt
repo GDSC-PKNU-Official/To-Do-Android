@@ -1,4 +1,4 @@
-package com.gdsc.todo.ToDo
+package com.gdsc.todo
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -19,6 +19,7 @@ class ToDoRepository(application: Application) {
 
     private val myToDoSet: List<MyToDoList> = toDoDao.getAll()
 
+
     fun getAllToDo(): List<MyToDoList>{
         return myToDoSet
     }
@@ -28,6 +29,6 @@ class ToDoRepository(application: Application) {
     }
 
     fun delete(id: Long){
-        TODO()
+        // TODO()
     }
 }
