@@ -9,14 +9,15 @@ import com.gdsc.todo.model.TodoModel
 
 //  model의 TodoModel 리스트를 생성자로부터 전달받아 RecyclerView.Adapter를 상속받고,
 //  RecyclerView.ViewHolder를 뷰홀더로 갖는 클래스를 구현합니다.
-class TodoListAdapter(val deleteItem: (TodoModel) -> Unit) : RecyclerView.Adapter<TodoListAdapter.TodoViewHolder>() {
-    private var todoItems: List<TodoModel> = listOf()
+class TodoListAdapter(private var todoItems: List<TodoModel>, val deleteItem: (TodoModel) -> Unit) : RecyclerView.Adapter<TodoListAdapter.TodoViewHolder>() {
+//    private var todoItems: List<TodoModel> = listOf()
+//    private val todoIt
 
     inner class TodoViewHolder(private val binding: TodoItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(todoModel: TodoModel) {
             binding.todoItemListTitleTV.text = todoModel.title
             binding.todoItemListTimeStampTV.text = todoModel.timeStamp
-            binding.todoItemListCheckCB.isChecked = todoModel.checked
+            binding.todoItemListCheckCB.isChecked = todoModel.isChecked
             binding.todoItemListDeleteBT.setOnClickListener {
                 deleteItem(todoModel)
             }
@@ -31,7 +32,7 @@ class TodoListAdapter(val deleteItem: (TodoModel) -> Unit) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        val todoModel = todoItems[position]
+        val todoModel: TodoModel = todoItems[position]
         holder.bind(todoModel)
     }
 
@@ -39,4 +40,5 @@ class TodoListAdapter(val deleteItem: (TodoModel) -> Unit) : RecyclerView.Adapte
         this.todoItems = todoItems
         notifyDataSetChanged()
     }
+
 }

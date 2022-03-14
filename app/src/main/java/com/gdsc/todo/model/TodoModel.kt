@@ -3,18 +3,20 @@ package com.gdsc.todo.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
-@Entity(tableName = "tb_todo")
+@Entity(tableName = "todo_Table")
 data class TodoModel(
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0,
+
     @ColumnInfo(name = "title")
     val title: String,
 
     @ColumnInfo(name = "timeStamp")
-    val timeStamp: String,
+    var timeStamp: String,
 
     @ColumnInfo(name = "isChecked")
-    var checked: Boolean
-) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-}
+    var isChecked: Boolean
+): Serializable
