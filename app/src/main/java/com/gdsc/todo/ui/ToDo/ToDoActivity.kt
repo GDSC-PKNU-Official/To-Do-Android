@@ -1,16 +1,14 @@
-package com.gdsc.todo.ToDo
+package com.gdsc.todo.ui.ToDo
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.gdsc.todo.AddToDo.AddToDoActivity
-import com.gdsc.todo.ToDoViewModel
+import com.gdsc.todo.ui.ToDoViewModel
 import com.gdsc.todo.databinding.ActivityToDoBinding
 import com.gdsc.todo.model.db.ToDoDatabase
-import java.util.*
+import com.gdsc.todo.ui.AddToDo.AddToDoActivity
 
 const val TAG2 = "ToDoActivity"
 
@@ -25,7 +23,8 @@ class ToDoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         recyclerView = binding.todoRecyclerView
-        viewModel = ViewModelProvider(this , ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ToDoViewModel::class.java)
+        viewModel = ViewModelProvider(this , ViewModelProvider.AndroidViewModelFactory(getApplication())).get(
+            ToDoViewModel::class.java)
         setRecyclerView()
 
         binding.mainAddButton.setOnClickListener {
@@ -34,7 +33,7 @@ class ToDoActivity : AppCompatActivity() {
     }
 
     fun setRecyclerView() {
-        toDoAdapter = ToDoAdapter(viewModel.myToDoSet)
+        toDoAdapter = ToDoAdapter(viewModel.myToDoSet, viewModel)
         toDoAdapter.notifyDataSetChanged()
         recyclerView.apply {
             adapter = toDoAdapter
@@ -46,8 +45,20 @@ class ToDoActivity : AppCompatActivity() {
         super.onResume()
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        viewModel.getAll()
+        setRecyclerView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ToDoDatabase.destroyInstance()
+    }
+
     private fun startAddToDoActivity(){
         val intent = Intent(this, AddToDoActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }

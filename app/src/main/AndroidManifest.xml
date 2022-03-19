@@ -8,12 +8,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ToDo">
+        android:theme="@style/Theme.ToDo"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".AddToDo.AddToDoActivity"
+            android:name=".ui.AddToDo.AddToDoActivity"
             android:exported="false" />
         <activity
-            android:name=".ToDo.ToDoActivity"
+            android:name="com.gdsc.todo.ui.ToDo.ToDoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

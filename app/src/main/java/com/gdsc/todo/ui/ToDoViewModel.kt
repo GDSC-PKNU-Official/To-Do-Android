@@ -1,11 +1,9 @@
-package com.gdsc.todo
+package com.gdsc.todo.ui
 
 import android.app.Application
 import android.util.Log
-import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
-import com.gdsc.todo.AddToDo.AddToDoActivity
-import com.gdsc.todo.ToDo.TAG2
+import com.gdsc.todo.model.ToDoRepository
 import com.gdsc.todo.model.entity.MyToDoList
 
 // UI에 데이터를 제공하는 역할을 한다.
@@ -24,6 +22,10 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         Log.d(TAG, "init")
+        getAll()
+    }
+
+    fun getAll(){
         Thread{
             _myToDoSet = repository.getAllToDo() as ArrayList<MyToDoList>
         }.start()
@@ -31,15 +33,21 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun addButtonClick(){
-        if(title.toString()!=null  && content.toString()!=null){
-            Thread{
-                val newToDo = MyToDoList(title = title.toString(), content = content.toString())
-                repository.insert(newToDo)
-            }.start()
-            Thread.sleep(TIME) // 있어야 제목이 저장됨(왜?)
-        } else{
+        Thread{
+            val newToDo = MyToDoList(title = title.toString(), content = content.toString())
+            repository.insert(newToDo)
+        }.start()
+        Thread.sleep(TIME) // 있어야 제목이 저장됨(왜?)
+    }
 
-        }
+    fun deleteToDo(toDo: MyToDoList){
+        Thread{
+            repository.delete(toDo)
+        }.start()
+    }
+
+    fun checkEmpty(): Boolean{
+        return title!=""  && content!=""
     }
 
     companion object{

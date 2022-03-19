@@ -1,4 +1,4 @@
-package com.gdsc.todo
+package com.gdsc.todo.model
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -28,7 +28,7 @@ class ToDoRepository(application: Application) {
         toDoDao.insert(newToDo)
     }
 
-    fun delete(id: Long){
-        // TODO()
+    fun delete(toDo: MyToDoList){
+        toDoDao.delete(toDo)
     }
 }
