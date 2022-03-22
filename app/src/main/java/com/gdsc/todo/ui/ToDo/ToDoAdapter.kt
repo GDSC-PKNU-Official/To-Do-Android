@@ -8,6 +8,8 @@ import com.gdsc.todo.ui.ToDoViewModel
 import com.gdsc.todo.databinding.ItemTodoBinding
 import com.gdsc.todo.model.entity.MyToDoList
 
+const val TAG = "ToDoAdapter"
+
 class ToDoAdapter(
     private val myToDoSet: List<MyToDoList>,
     private val viewModel: ToDoViewModel
@@ -17,7 +19,7 @@ class ToDoAdapter(
         // 체크박스 클릭 시 데이터 삭제
         fun checking(toDo: MyToDoList, viewModel: ToDoViewModel){
             binding.checked.setOnCheckedChangeListener { _, _ ->
-                Log.d("ToDoAdapter", binding.checked.isChecked.toString())
+                Log.d(TAG, binding.checked.isChecked.toString())
                 if(binding.checked.isChecked){
                     Thread{
                         viewModel.deleteToDo(toDo)

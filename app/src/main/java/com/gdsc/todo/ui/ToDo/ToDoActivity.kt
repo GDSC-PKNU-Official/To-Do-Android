@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gdsc.todo.ui.ToDoViewModel
 import com.gdsc.todo.databinding.ActivityToDoBinding
 import com.gdsc.todo.model.db.ToDoDatabase
+import com.gdsc.todo.model.entity.MyToDoList
 import com.gdsc.todo.ui.AddToDo.AddToDoActivity
 
 const val TAG2 = "ToDoActivity"
@@ -60,5 +61,9 @@ class ToDoActivity : AppCompatActivity() {
         val intent = Intent(this, AddToDoActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun checkEvent(toDo: MyToDoList){
+        viewModel.deleteToDo(toDo)
     }
 }

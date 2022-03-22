@@ -68,15 +68,12 @@ class AddToDoActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun addAfterCheck(){
-        val isNotEmpty = viewModel.checkEmpty()
-        when(isNotEmpty){
-            true -> {
-                viewModel.addButtonClick()
-                startToDoActivity()
-            } else -> {
-                showEmptyToDoError()
-            }
+    private fun addAfterCheck()= when(viewModel.checkEmpty()){
+        true -> {
+            viewModel.addButtonClick()
+            startToDoActivity()
+        } else -> {
+            showEmptyToDoError()
         }
     }
 }

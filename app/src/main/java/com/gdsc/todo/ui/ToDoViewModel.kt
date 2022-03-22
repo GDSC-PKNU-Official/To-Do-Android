@@ -46,9 +46,7 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
         }.start()
     }
 
-    fun checkEmpty(): Boolean{
-        return title!=""  && content!=""
-    }
+    fun checkEmpty() = title!=""  && content!=""
 
     companion object{
         const val TAG = "ToDoViewModel"
