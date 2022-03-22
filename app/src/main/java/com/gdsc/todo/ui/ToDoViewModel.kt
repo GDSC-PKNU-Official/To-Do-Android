@@ -10,9 +10,12 @@ import com.gdsc.todo.model.entity.MyToDoList
 class ToDoViewModel(application: Application) : AndroidViewModel(application) {
 
     private var _myToDoSet = ArrayList<MyToDoList>()
+    private var _sortMyToDoSet = ArrayList<MyToDoList>()
 
     val myToDoSet: List<MyToDoList>
         get() = _myToDoSet
+    val sortMyToDoSet: List<MyToDoList>
+        get() = _sortMyToDoSet
     var title = ""
     var content = ""
 
@@ -23,6 +26,8 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
     init {
         Log.d(TAG, "init")
         getAll()
+        // _sortMyToDoSet = _myToDoSet 얕은 복사(기존 객체에 영향 O)
+        _sortMyToDoSet.addAll(_myToDoSet) // 깊은 복사(기존 객체에 영향 X)
     }
 
     fun getAll(){
@@ -48,8 +53,12 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
 
     fun checkEmpty() = title!=""  && content!=""
 
+    fun sortTitle(){
+        _sortMyToDoSet.sortBy{it.title}
+    }
+
     companion object{
         const val TAG = "ToDoViewModel"
-        const val TIME: Long = 1000
+        const val TIME: Long = 500
     }
 }
