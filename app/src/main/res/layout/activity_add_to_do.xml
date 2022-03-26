@@ -43,10 +43,23 @@
             android:text="@={addToDoViewModel.title}"/>
 
         <EditText
-            android:id="@+id/addTodo_content"
+            android:id="@+id/addTodo_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/addTodo_title"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="13dp"
+            android:background="@android:color/transparent"
+            android:hint="Deadline(mmdd)"
+            android:text="@={addToDoViewModel.date}" />
+
+        <EditText
+            android:id="@+id/addTodo_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addTodo_date"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp"
             android:background="@android:color/transparent"

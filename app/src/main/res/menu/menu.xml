@@ -7,4 +7,9 @@
         android:icon="@drawable/sort"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/sort_date"
+        android:icon="@drawable/sort_date"
+        app:showAsAction="always" />
+
 </menu>

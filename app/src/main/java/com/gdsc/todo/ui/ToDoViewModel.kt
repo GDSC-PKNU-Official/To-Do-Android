@@ -18,6 +18,7 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
         get() = _sortMyToDoSet
     var title = ""
     var content = ""
+    var date = ""
 
     private val repository: ToDoRepository by lazy{
         ToDoRepository(application)
@@ -39,7 +40,7 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addButtonClick(){
         Thread{
-            val newToDo = MyToDoList(title = title.toString(), content = content.toString())
+            val newToDo = MyToDoList(title = title, content = content, date = "~" + date)
             repository.insert(newToDo)
         }.start()
         Thread.sleep(TIME) // 있어야 제목이 저장됨(왜?)
@@ -55,6 +56,10 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
 
     fun sortTitle(){
         _sortMyToDoSet.sortBy{it.title}
+    }
+
+    fun sortDate(){
+        _sortMyToDoSet.sortBy{it.date}
     }
 
     companion object{

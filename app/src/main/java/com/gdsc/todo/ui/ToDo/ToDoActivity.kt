@@ -26,7 +26,8 @@ class ToDoActivity : AppCompatActivity() {
     private lateinit var toDoAdapter: ToDoAdapter
     private lateinit var viewModel: ToDoViewModel
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
-    private var isSorted: Boolean = false
+    private var titleIsSorted: Boolean = false
+    private var dateIsSorted: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,7 @@ class ToDoActivity : AppCompatActivity() {
     }
 
     fun setRecyclerView() {
-        when(isSorted){
+        when(titleIsSorted || dateIsSorted){
             true -> toDoAdapter = ToDoAdapter(viewModel.sortMyToDoSet, viewModel)
             false -> toDoAdapter = ToDoAdapter(viewModel.myToDoSet, viewModel)
         }
@@ -93,17 +94,33 @@ class ToDoActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.sort_title -> {
-                when(isSorted) {
+                when(titleIsSorted) {
                     true -> {
-                        Log.d(ISSORTED, isSorted.toString())
+                        Log.d(ISSORTED, titleIsSorted.toString())
+                        titleIsSorted = false
                         setRecyclerView()
-                        isSorted = false
                     }
                     false -> {
-                        Log.d(ISSORTED, isSorted.toString())
+                        Log.d(ISSORTED, titleIsSorted.toString())
                         viewModel.sortTitle()
+                        titleIsSorted = true
+                        dateIsSorted = false
                         setRecyclerView()
-                        isSorted = true
+                    }
+                }
+                return true
+            }
+            R.id.sort_date -> {
+                when(dateIsSorted){
+                    true -> {
+                        dateIsSorted = false
+                        setRecyclerView()
+                    }
+                    false -> {
+                        viewModel.sortDate()
+                        dateIsSorted = true
+                        titleIsSorted = false
+                        setRecyclerView()
                     }
                 }
                 return true

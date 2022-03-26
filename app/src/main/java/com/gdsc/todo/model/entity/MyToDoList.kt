@@ -10,5 +10,6 @@ import androidx.room.PrimaryKey
 data class MyToDoList(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(name="title") val title: String,
-    @ColumnInfo(name="content") val content: String
+    @ColumnInfo(name="content") val content: String,
+    @ColumnInfo(name="date") val date: String
 )
