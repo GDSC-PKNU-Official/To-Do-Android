@@ -1,11 +1,14 @@
 package com.gdsc.todo.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.gdsc.todo.di.provider.DispatcherProvider
 import com.gdsc.todo.Event
 import com.gdsc.todo.data.entity.ToDo
+import com.gdsc.todo.data.entity.ToDoEntity
 import com.gdsc.todo.data.local.ToDoLocalDataSource
 import com.gdsc.todo.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +19,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
+@RequiresApi(Build.VERSION_CODES.O)
 class ToDoViewModel @Inject constructor(
     dispatcherProvider: DispatcherProvider,
     private val localDataSource: ToDoLocalDataSource
@@ -39,7 +43,7 @@ class ToDoViewModel @Inject constructor(
     }
 
     private fun addToDoList() = onIo {
-        localDataSource.addToDo(ToDo(title = title, contents = contents))
+        localDataSource.addToDo((ToDo(title = title, contents = contents).to()))
     }
 
     fun getToDoList() = localDataSource.getToDoList()
