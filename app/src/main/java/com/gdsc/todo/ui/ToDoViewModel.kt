@@ -20,7 +20,7 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
     var content = ""
     var date = ""
 
-    private val repository: ToDoRepository by lazy{
+    private val repository: ToDoRepository by lazy {
         ToDoRepository(application)
     }
 
@@ -31,38 +31,38 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
         _sortMyToDoSet.addAll(_myToDoSet) // 깊은 복사(기존 객체에 영향 X)
     }
 
-    fun getAll(){
-        Thread{
+    fun getAll() {
+        Thread {
             _myToDoSet = repository.getAllToDo() as ArrayList<MyToDoList>
         }.start()
         Thread.sleep(TIME)
     }
 
-    fun addButtonClick(){
-        Thread{
+    fun addButtonClick() {
+        Thread {
             val newToDo = MyToDoList(title = title, content = content, date = "~" + date)
             repository.insert(newToDo)
         }.start()
         Thread.sleep(TIME) // 있어야 제목이 저장됨(왜?)
     }
 
-    fun deleteToDo(toDo: MyToDoList){
-        Thread{
+    fun deleteToDo(toDo: MyToDoList) {
+        Thread {
             repository.delete(toDo)
         }.start()
     }
 
-    fun checkEmpty() = title!=""  && content!=""
+    fun checkEmpty() = title != "" && content != ""
 
-    fun sortTitle(){
-        _sortMyToDoSet.sortBy{it.title}
+    fun sortTitle() {
+        _sortMyToDoSet.sortBy { it.title }
     }
 
-    fun sortDate(){
-        _sortMyToDoSet.sortBy{it.date}
+    fun sortDate() {
+        _sortMyToDoSet.sortBy { it.date }
     }
 
-    companion object{
+    companion object {
         const val TAG = "ToDoViewModel"
         const val TIME: Long = 500
     }

@@ -12,7 +12,7 @@ import com.gdsc.todo.model.entity.MyToDoList
 class ToDoRepository(application: Application) {
 
     // lazy? application?
-    private val toDoDao: ToDoDao by lazy{
+    private val toDoDao: ToDoDao by lazy {
         val db = ToDoDatabase.getInstance(application)!!
         db.getToDoDao()
     }
@@ -20,15 +20,15 @@ class ToDoRepository(application: Application) {
     private val myToDoSet: List<MyToDoList> = toDoDao.getAll()
 
 
-    fun getAllToDo(): List<MyToDoList>{
+    fun getAllToDo(): List<MyToDoList> {
         return myToDoSet
     }
 
-    fun insert(newToDo: MyToDoList){
+    fun insert(newToDo: MyToDoList) {
         toDoDao.insert(newToDo)
     }
 
-    fun delete(toDo: MyToDoList){
+    fun delete(toDo: MyToDoList) {
         toDoDao.delete(toDo)
     }
 }

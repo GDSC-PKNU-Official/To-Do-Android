@@ -13,7 +13,7 @@ import com.gdsc.todo.model.dao.ToDoDao
 // 추상 클래스로 만든 인스턴스는 주로 싱글톤으로 만든다.
 // 같은 시간에 여러 개의 인스턴스에서 데이터베이스에 접근하는 것을 막기 위함이다.
 @Database(entities = [MyToDoList::class], version = 9)
-abstract class ToDoDatabase: RoomDatabase() {
+abstract class ToDoDatabase : RoomDatabase() {
     abstract fun getToDoDao(): ToDoDao
 
     // 데이터베이스 객체를 인스턴스 할 때 싱글톤으로 구현
@@ -23,8 +23,8 @@ abstract class ToDoDatabase: RoomDatabase() {
         // 데이터베이스 객체를 반환
         @Synchronized
         fun getInstance(context: Context): ToDoDatabase? {
-            if(instance == null){
-                synchronized(ToDoDatabase::class){
+            if (instance == null) {
+                synchronized(ToDoDatabase::class) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         ToDoDatabase::class.java,

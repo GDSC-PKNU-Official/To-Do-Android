@@ -13,15 +13,15 @@ const val TAG = "ToDoAdapter"
 class ToDoAdapter(
     private val myToDoSet: List<MyToDoList>,
     private val viewModel: ToDoViewModel
-): RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
-    class ToDoViewHolder(val binding: ItemTodoBinding): RecyclerView.ViewHolder(binding.root){
+) : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
+    class ToDoViewHolder(val binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // 체크박스 클릭 시 데이터 삭제
-        fun checking(toDo: MyToDoList, viewModel: ToDoViewModel){
+        fun checking(toDo: MyToDoList, viewModel: ToDoViewModel) {
             binding.checked.setOnCheckedChangeListener { _, _ ->
                 Log.d(TAG, binding.checked.isChecked.toString())
-                if(binding.checked.isChecked){
-                    Thread{
+                if (binding.checked.isChecked) {
+                    Thread {
                         viewModel.deleteToDo(toDo)
                     }.start()
                 }
@@ -29,17 +29,21 @@ class ToDoAdapter(
         }
     }
 
-    override fun getItemCount(): Int{
+    override fun getItemCount(): Int {
         Log.d("size", myToDoSet.size.toString())
-        if(myToDoSet.isNotEmpty()){
+        if (myToDoSet.isNotEmpty()) {
             return myToDoSet.size
         }
         return 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoViewHolder =
-        ToDoViewHolder(ItemTodoBinding.inflate(LayoutInflater.from(parent.context),
-            parent, false))
+        ToDoViewHolder(
+            ItemTodoBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
+        )
 
     override fun onBindViewHolder(holder: ToDoViewHolder, position: Int) {
         holder.binding.item = myToDoSet[position]

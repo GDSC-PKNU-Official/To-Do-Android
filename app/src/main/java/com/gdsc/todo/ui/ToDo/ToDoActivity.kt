@@ -25,7 +25,6 @@ class ToDoActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var toDoAdapter: ToDoAdapter
     private lateinit var viewModel: ToDoViewModel
-    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
     private var titleIsSorted: Boolean = false
     private var dateIsSorted: Boolean = false
 
@@ -35,11 +34,14 @@ class ToDoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         recyclerView = binding.todoRecyclerView
-        toolbar = binding.todoToolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.todoToolbar)
 
-        viewModel = ViewModelProvider(this , ViewModelProvider.AndroidViewModelFactory(getApplication())).get(
-            ToDoViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory(getApplication())
+        ).get(
+            ToDoViewModel::class.java
+        )
         setRecyclerView()
 
         binding.mainAddButton.setOnClickListener {
@@ -48,7 +50,7 @@ class ToDoActivity : AppCompatActivity() {
     }
 
     fun setRecyclerView() {
-        when(titleIsSorted || dateIsSorted){
+        when (titleIsSorted || dateIsSorted) {
             true -> toDoAdapter = ToDoAdapter(viewModel.sortMyToDoSet, viewModel)
             false -> toDoAdapter = ToDoAdapter(viewModel.myToDoSet, viewModel)
         }
@@ -74,13 +76,13 @@ class ToDoActivity : AppCompatActivity() {
         ToDoDatabase.destroyInstance()
     }
 
-    private fun startAddToDoActivity(){
+    private fun startAddToDoActivity() {
         val intent = Intent(this, AddToDoActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    private fun checkEvent(toDo: MyToDoList){
+    private fun checkEvent(toDo: MyToDoList) {
         viewModel.deleteToDo(toDo)
     }
 
@@ -92,40 +94,42 @@ class ToDoActivity : AppCompatActivity() {
 
     // toolbar에 추가된 항목 클릭 시 이벤트 처리
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.sort_title -> {
-                when(titleIsSorted) {
-                    true -> {
-                        Log.d(ISSORTED, titleIsSorted.toString())
-                        titleIsSorted = false
-                        setRecyclerView()
-                    }
-                    false -> {
-                        Log.d(ISSORTED, titleIsSorted.toString())
-                        viewModel.sortTitle()
-                        titleIsSorted = true
-                        dateIsSorted = false
-                        setRecyclerView()
-                    }
-                }
-                return true
-            }
-            R.id.sort_date -> {
-                when(dateIsSorted){
-                    true -> {
-                        dateIsSorted = false
-                        setRecyclerView()
-                    }
-                    false -> {
-                        viewModel.sortDate()
-                        dateIsSorted = true
-                        titleIsSorted = false
-                        setRecyclerView()
-                    }
-                }
-                return true
-            }
+        when (item.itemId) {
+            R.id.sort_title -> checkTitleSorted()
+            R.id.sort_date -> checkDateSorted()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun checkTitleSorted() {
+        when (titleIsSorted) {
+            true -> {
+                Log.d(ISSORTED, titleIsSorted.toString())
+                titleIsSorted = false
+                setRecyclerView()
+            }
+            false -> {
+                Log.d(ISSORTED, titleIsSorted.toString())
+                viewModel.sortTitle()
+                titleIsSorted = true
+                dateIsSorted = false
+                setRecyclerView()
+            }
+        }
+    }
+
+    private fun checkDateSorted() {
+        when (dateIsSorted) {
+            true -> {
+                dateIsSorted = false
+                setRecyclerView()
+            }
+            false -> {
+                viewModel.sortDate()
+                dateIsSorted = true
+                titleIsSorted = false
+                setRecyclerView()
+            }
+        }
     }
 }
