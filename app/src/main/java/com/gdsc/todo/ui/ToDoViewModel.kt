@@ -10,46 +10,60 @@ import com.gdsc.todo.model.entity.MyToDoList
 class ToDoViewModel(application: Application) : AndroidViewModel(application) {
 
     private var _myToDoSet = ArrayList<MyToDoList>()
+    private var _sortMyToDoSet = ArrayList<MyToDoList>()
 
     val myToDoSet: List<MyToDoList>
         get() = _myToDoSet
+    val sortMyToDoSet: List<MyToDoList>
+        get() = _sortMyToDoSet
     var title = ""
     var content = ""
+    var date = ""
 
-    private val repository: ToDoRepository by lazy{
+    private val repository: ToDoRepository by lazy {
         ToDoRepository(application)
     }
 
     init {
         Log.d(TAG, "init")
         getAll()
+        // _sortMyToDoSet = _myToDoSet 얕은 복사(기존 객체에 영향 O)
+        _sortMyToDoSet.addAll(_myToDoSet) // 깊은 복사(기존 객체에 영향 X)
     }
 
-    fun getAll(){
-        Thread{
+    fun getAll() {
+        Thread {
             _myToDoSet = repository.getAllToDo() as ArrayList<MyToDoList>
         }.start()
         Thread.sleep(TIME)
     }
 
-    fun addButtonClick(){
-        Thread{
-            val newToDo = MyToDoList(title = title.toString(), content = content.toString())
+    fun addButtonClick() {
+        Thread {
+            val newToDo = MyToDoList(title = title, content = content, date = "~" + date)
             repository.insert(newToDo)
         }.start()
         Thread.sleep(TIME) // 있어야 제목이 저장됨(왜?)
     }
 
-    fun deleteToDo(toDo: MyToDoList){
-        Thread{
+    fun deleteToDo(toDo: MyToDoList) {
+        Thread {
             repository.delete(toDo)
         }.start()
     }
 
-    fun checkEmpty() = title!=""  && content!=""
+    fun checkEmpty() = title != "" && content != ""
 
-    companion object{
+    fun sortTitle() {
+        _sortMyToDoSet.sortBy { it.title }
+    }
+
+    fun sortDate() {
+        _sortMyToDoSet.sortBy { it.date }
+    }
+
+    companion object {
         const val TAG = "ToDoViewModel"
-        const val TIME: Long = 1000
+        const val TIME: Long = 500
     }
 }

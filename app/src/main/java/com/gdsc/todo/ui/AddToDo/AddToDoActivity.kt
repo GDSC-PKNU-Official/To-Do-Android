@@ -25,8 +25,12 @@ class AddToDoActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_to_do)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this , ViewModelProvider.AndroidViewModelFactory(getApplication())).get(
-            ToDoViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory(getApplication())
+        ).get(
+            ToDoViewModel::class.java
+        )
         binding.addToDoViewModel = viewModel
 
         // 뒤로가기 버튼 생성
@@ -44,7 +48,7 @@ class AddToDoActivity : AppCompatActivity() {
     // 툴바의 뒤로가기 버튼 이벤트
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        when(id){
+        when (id) {
             android.R.id.home -> {
                 startToDoActivity()
                 return true
@@ -68,11 +72,12 @@ class AddToDoActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun addAfterCheck()= when(viewModel.checkEmpty()){
+    private fun addAfterCheck() = when (viewModel.checkEmpty()) {
         true -> {
             viewModel.addButtonClick()
             startToDoActivity()
-        } else -> {
+        }
+        else -> {
             showEmptyToDoError()
         }
     }
