@@ -13,7 +13,7 @@ interface ToDoDao {
     fun insertToDo(toDo: ToDoEntity)
 
     @Query("SELECT * FROM `todoentity`")
-    fun fetchAllToDo(): LiveData<List<ToDoEntity>?>
+    fun fetchAllToDo(): Flow<List<ToDoEntity>?>
 
     @Delete
     fun deleteToDo(toDo: ToDoEntity)
