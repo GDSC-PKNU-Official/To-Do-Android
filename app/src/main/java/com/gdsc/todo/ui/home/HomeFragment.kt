@@ -1,10 +1,12 @@
 package com.gdsc.todo.ui.home
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+@RequiresApi(Build.VERSION_CODES.O)
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val toDoViewModel by navGraphViewModels<ToDoViewModel>(R.id.homeFragment) { defaultViewModelProviderFactory }
@@ -28,16 +31,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         binding.vm = toDoViewModel
 
         setHasOptionsMenu(true)
-        observeToDoList()
         observeAddFAB()
 
         viewLifecycleOwner.lifecycleScope.launch {
             collectSortMenu()
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            collectToDoList()
+        }
     }
 
-    private fun observeToDoList() {
-        toDoViewModel.getToDoList().observe(this) { toDoList ->
+    private suspend fun collectToDoList() {
+        toDoViewModel.getToDoList().collect { toDoList ->
             adapter.submitList(toDoList)
         }
     }

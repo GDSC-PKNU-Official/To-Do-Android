@@ -3,23 +3,24 @@ package com.gdsc.todo.data.local
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.gdsc.todo.data.entity.ToDo
+import com.gdsc.todo.data.entity.ToDoEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ToDoDao {
 
     @Insert
-    fun insertToDo(toDo: ToDo)
+    fun insertToDo(toDo: ToDoEntity)
 
-    @Query("SELECT * FROM `todo`")
-    fun fetchAllToDo(): LiveData<List<ToDo>?>
+    @Query("SELECT * FROM `todoentity`")
+    fun fetchAllToDo(): Flow<List<ToDoEntity>?>
 
     @Delete
-    fun deleteToDo(toDo: ToDo)
+    fun deleteToDo(toDo: ToDoEntity)
 
     @Update
-    fun updateToDo(toDo: ToDo)
+    fun updateToDo(toDo: ToDoEntity)
 
-    @Query("SELECT * FROM `todo` ORDER BY title")
-    fun fetchAllToDoSortedByTitle(): Flow<List<ToDo>>
+    @Query("SELECT * FROM `todoentity` ORDER BY title")
+    fun fetchAllToDoSortedByTitle(): Flow<List<ToDoEntity>>
 }

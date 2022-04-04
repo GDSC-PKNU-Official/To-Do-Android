@@ -1,5 +1,7 @@
 package com.gdsc.todo.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,13 +11,11 @@ import com.gdsc.todo.data.entity.ToDo
 import com.gdsc.todo.data.local.ToDoLocalDataSource
 import com.gdsc.todo.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
+@RequiresApi(Build.VERSION_CODES.O)
 class ToDoViewModel @Inject constructor(
     dispatcherProvider: DispatcherProvider,
     private val localDataSource: ToDoLocalDataSource
@@ -39,10 +39,14 @@ class ToDoViewModel @Inject constructor(
     }
 
     private fun addToDoList() = onIo {
-        localDataSource.addToDo(ToDo(title = title, contents = contents))
+        localDataSource.addToDo((ToDo(title = title, contents = contents).to()))
     }
 
-    fun getToDoList() = localDataSource.getToDoList()
+    fun getToDoList() = localDataSource.getToDoList() .map { entityList ->
+        entityList?.map { entity ->
+            entity.to()
+        } ?: emptyList()
+    }
 
     fun clickAddButton() {
         _addButtonClickEvent.value = Event(Unit)
@@ -52,6 +56,9 @@ class ToDoViewModel @Inject constructor(
         _sortMenuClickEvent.emit(Event(Unit))
     }
 
-    suspend fun getToDoListSortedByTitle() = localDataSource.getToDoListSortedByTitle()
-        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+    suspend fun getToDoListSortedByTitle() = localDataSource.getToDoListSortedByTitle().map { entityList ->
+        entityList.map { entity ->
+            entity.to()
+        }
+    } .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 }
