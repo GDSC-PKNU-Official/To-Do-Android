@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.gdsc.todo.dto.TodoModel
 
+// 수정!
 @Dao
 interface TodoDao {
     @Query("SELECT * FROM TodoModel WHERE title LIKE :todoTitle")
